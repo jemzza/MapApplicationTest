@@ -9,13 +9,30 @@
 /* Begin PBXBuildFile section */
 		A227AAF724C03BE500B3E1A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AAF624C03BE500B3E1A0 /* AppDelegate.swift */; };
 		A227AAF924C03BE500B3E1A0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AAF824C03BE500B3E1A0 /* SceneDelegate.swift */; };
-		A227AAFB24C03BE500B3E1A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AAFA24C03BE500B3E1A0 /* ViewController.swift */; };
 		A227AAFE24C03BE500B3E1A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A227AAFC24C03BE500B3E1A0 /* Main.storyboard */; };
 		A227AB0124C03BE500B3E1A0 /* MapApplicationTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A227AAFF24C03BE500B3E1A0 /* MapApplicationTest.xcdatamodeld */; };
 		A227AB0324C03BEA00B3E1A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A227AB0224C03BEA00B3E1A0 /* Assets.xcassets */; };
 		A227AB0624C03BEA00B3E1A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A227AB0424C03BEA00B3E1A0 /* LaunchScreen.storyboard */; };
 		A227AB1124C03BEA00B3E1A0 /* MapApplicationTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB1024C03BEA00B3E1A0 /* MapApplicationTestTests.swift */; };
 		A227AB1C24C03BEA00B3E1A0 /* MapApplicationTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB1B24C03BEA00B3E1A0 /* MapApplicationTestUITests.swift */; };
+		A227AB2A24C03C3400B3E1A0 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB2924C03C3400B3E1A0 /* MapViewController.swift */; };
+		A227AB2F24C03D8B00B3E1A0 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB2E24C03D8B00B3E1A0 /* Order.swift */; };
+		A227AB3224C03F0D00B3E1A0 /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB3124C03F0D00B3E1A0 /* Interest.swift */; };
+		A227AB3424C0415600B3E1A0 /* ReadABook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB3324C0415600B3E1A0 /* ReadABook.swift */; };
+		A227AB3624C042BE00B3E1A0 /* WatchAFilm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB3524C042BE00B3E1A0 /* WatchAFilm.swift */; };
+		A227AB3824C0436A00B3E1A0 /* HelpWithTheApartment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB3724C0436A00B3E1A0 /* HelpWithTheApartment.swift */; };
+		A227AB3A24C043E700B3E1A0 /* Walking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB3924C043E700B3E1A0 /* Walking.swift */; };
+		A227AB3C24C0444700B3E1A0 /* GoToShopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB3B24C0444700B3E1A0 /* GoToShopping.swift */; };
+		A227AB3E24C0449900B3E1A0 /* Different.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB3D24C0449900B3E1A0 /* Different.swift */; };
+		A227AB4124C0450B00B3E1A0 /* Duration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB4024C0450B00B3E1A0 /* Duration.swift */; };
+		A227AB4324C0461A00B3E1A0 /* DurationFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB4224C0461A00B3E1A0 /* DurationFirst.swift */; };
+		A227AB4724C046C500B3E1A0 /* DurationThird.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB4624C046C500B3E1A0 /* DurationThird.swift */; };
+		A227AB4A24C0476500B3E1A0 /* DurationSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB4924C0476500B3E1A0 /* DurationSecond.swift */; };
+		A26B6E9824C0514F00902F66 /* FactoryInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6E9724C0514F00902F66 /* FactoryInterests.swift */; };
+		A26B6E9A24C053C300902F66 /* FactoryDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6E9924C053C300902F66 /* FactoryDuration.swift */; };
+		A26B6E9C24C0633700902F66 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6E9B24C0633700902F66 /* User.swift */; };
+		A26B6E9E24C066C400902F66 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6E9D24C066C400902F66 /* MapManager.swift */; };
+		A26B6EA224C09CE100902F66 /* EnteringAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6EA124C09CE100902F66 /* EnteringAddressViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +56,6 @@
 		A227AAF324C03BE500B3E1A0 /* MapApplicationTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApplicationTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A227AAF624C03BE500B3E1A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A227AAF824C03BE500B3E1A0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A227AAFA24C03BE500B3E1A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A227AAFD24C03BE500B3E1A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A227AB0024C03BE500B3E1A0 /* MapApplicationTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MapApplicationTest.xcdatamodel; sourceTree = "<group>"; };
 		A227AB0224C03BEA00B3E1A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +67,24 @@
 		A227AB1724C03BEA00B3E1A0 /* MapApplicationTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapApplicationTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A227AB1B24C03BEA00B3E1A0 /* MapApplicationTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapApplicationTestUITests.swift; sourceTree = "<group>"; };
 		A227AB1D24C03BEA00B3E1A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A227AB2924C03C3400B3E1A0 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		A227AB2E24C03D8B00B3E1A0 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		A227AB3124C03F0D00B3E1A0 /* Interest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
+		A227AB3324C0415600B3E1A0 /* ReadABook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadABook.swift; sourceTree = "<group>"; };
+		A227AB3524C042BE00B3E1A0 /* WatchAFilm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAFilm.swift; sourceTree = "<group>"; };
+		A227AB3724C0436A00B3E1A0 /* HelpWithTheApartment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpWithTheApartment.swift; sourceTree = "<group>"; };
+		A227AB3924C043E700B3E1A0 /* Walking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Walking.swift; sourceTree = "<group>"; };
+		A227AB3B24C0444700B3E1A0 /* GoToShopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToShopping.swift; sourceTree = "<group>"; };
+		A227AB3D24C0449900B3E1A0 /* Different.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Different.swift; sourceTree = "<group>"; };
+		A227AB4024C0450B00B3E1A0 /* Duration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Duration.swift; sourceTree = "<group>"; };
+		A227AB4224C0461A00B3E1A0 /* DurationFirst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationFirst.swift; sourceTree = "<group>"; };
+		A227AB4624C046C500B3E1A0 /* DurationThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationThird.swift; sourceTree = "<group>"; };
+		A227AB4924C0476500B3E1A0 /* DurationSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationSecond.swift; sourceTree = "<group>"; };
+		A26B6E9724C0514F00902F66 /* FactoryInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryInterests.swift; sourceTree = "<group>"; };
+		A26B6E9924C053C300902F66 /* FactoryDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryDuration.swift; sourceTree = "<group>"; };
+		A26B6E9B24C0633700902F66 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A26B6E9D24C066C400902F66 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		A26B6EA124C09CE100902F66 /* EnteringAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnteringAddressViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,12 +135,10 @@
 		A227AAF524C03BE500B3E1A0 /* MapApplicationTest */ = {
 			isa = PBXGroup;
 			children = (
-				A227AAF624C03BE500B3E1A0 /* AppDelegate.swift */,
-				A227AAF824C03BE500B3E1A0 /* SceneDelegate.swift */,
-				A227AAFA24C03BE500B3E1A0 /* ViewController.swift */,
-				A227AAFC24C03BE500B3E1A0 /* Main.storyboard */,
-				A227AB0224C03BEA00B3E1A0 /* Assets.xcassets */,
-				A227AB0424C03BEA00B3E1A0 /* LaunchScreen.storyboard */,
+				A227AB3024C03D9000B3E1A0 /* Models */,
+				A227AB2C24C03CF700B3E1A0 /* View */,
+				A227AB2D24C03D1100B3E1A0 /* Controllers */,
+				A227AB2B24C03CE400B3E1A0 /* Supporting files */,
 				A227AB0724C03BEA00B3E1A0 /* Info.plist */,
 				A227AAFF24C03BE500B3E1A0 /* MapApplicationTest.xcdatamodeld */,
 			);
@@ -129,6 +161,81 @@
 				A227AB1D24C03BEA00B3E1A0 /* Info.plist */,
 			);
 			path = MapApplicationTestUITests;
+			sourceTree = "<group>";
+		};
+		A227AB2B24C03CE400B3E1A0 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				A227AAF624C03BE500B3E1A0 /* AppDelegate.swift */,
+				A227AAF824C03BE500B3E1A0 /* SceneDelegate.swift */,
+				A227AB0224C03BEA00B3E1A0 /* Assets.xcassets */,
+				A227AB0424C03BEA00B3E1A0 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		A227AB2C24C03CF700B3E1A0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A227AAFC24C03BE500B3E1A0 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A227AB2D24C03D1100B3E1A0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A227AB2924C03C3400B3E1A0 /* MapViewController.swift */,
+				A26B6EA124C09CE100902F66 /* EnteringAddressViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		A227AB3024C03D9000B3E1A0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A26B6E9B24C0633700902F66 /* User.swift */,
+				A227AB2E24C03D8B00B3E1A0 /* Order.swift */,
+				A26B6E9724C0514F00902F66 /* FactoryInterests.swift */,
+				A26B6E9924C053C300902F66 /* FactoryDuration.swift */,
+				A227AB4824C046F100B3E1A0 /* Duration */,
+				A227AB3F24C044C000B3E1A0 /* Interest */,
+				A26B6E9F24C066DA00902F66 /* Managers */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A227AB3F24C044C000B3E1A0 /* Interest */ = {
+			isa = PBXGroup;
+			children = (
+				A227AB3124C03F0D00B3E1A0 /* Interest.swift */,
+				A227AB3324C0415600B3E1A0 /* ReadABook.swift */,
+				A227AB3524C042BE00B3E1A0 /* WatchAFilm.swift */,
+				A227AB3724C0436A00B3E1A0 /* HelpWithTheApartment.swift */,
+				A227AB3924C043E700B3E1A0 /* Walking.swift */,
+				A227AB3B24C0444700B3E1A0 /* GoToShopping.swift */,
+				A227AB3D24C0449900B3E1A0 /* Different.swift */,
+			);
+			path = Interest;
+			sourceTree = "<group>";
+		};
+		A227AB4824C046F100B3E1A0 /* Duration */ = {
+			isa = PBXGroup;
+			children = (
+				A227AB4024C0450B00B3E1A0 /* Duration.swift */,
+				A227AB4224C0461A00B3E1A0 /* DurationFirst.swift */,
+				A227AB4924C0476500B3E1A0 /* DurationSecond.swift */,
+				A227AB4624C046C500B3E1A0 /* DurationThird.swift */,
+			);
+			path = Duration;
+			sourceTree = "<group>";
+		};
+		A26B6E9F24C066DA00902F66 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				A26B6E9D24C066C400902F66 /* MapManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,10 +369,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A227AAFB24C03BE500B3E1A0 /* ViewController.swift in Sources */,
+				A227AB2F24C03D8B00B3E1A0 /* Order.swift in Sources */,
+				A227AB3624C042BE00B3E1A0 /* WatchAFilm.swift in Sources */,
+				A227AB4324C0461A00B3E1A0 /* DurationFirst.swift in Sources */,
+				A227AB4A24C0476500B3E1A0 /* DurationSecond.swift in Sources */,
+				A227AB3E24C0449900B3E1A0 /* Different.swift in Sources */,
+				A227AB3424C0415600B3E1A0 /* ReadABook.swift in Sources */,
+				A227AB3A24C043E700B3E1A0 /* Walking.swift in Sources */,
 				A227AB0124C03BE500B3E1A0 /* MapApplicationTest.xcdatamodeld in Sources */,
+				A227AB3C24C0444700B3E1A0 /* GoToShopping.swift in Sources */,
+				A26B6E9A24C053C300902F66 /* FactoryDuration.swift in Sources */,
+				A227AB4724C046C500B3E1A0 /* DurationThird.swift in Sources */,
+				A227AB3824C0436A00B3E1A0 /* HelpWithTheApartment.swift in Sources */,
 				A227AAF724C03BE500B3E1A0 /* AppDelegate.swift in Sources */,
+				A227AB2A24C03C3400B3E1A0 /* MapViewController.swift in Sources */,
+				A26B6E9824C0514F00902F66 /* FactoryInterests.swift in Sources */,
+				A227AB4124C0450B00B3E1A0 /* Duration.swift in Sources */,
+				A26B6E9E24C066C400902F66 /* MapManager.swift in Sources */,
+				A227AB3224C03F0D00B3E1A0 /* Interest.swift in Sources */,
 				A227AAF924C03BE500B3E1A0 /* SceneDelegate.swift in Sources */,
+				A26B6E9C24C0633700902F66 /* User.swift in Sources */,
+				A26B6EA224C09CE100902F66 /* EnteringAddressViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
