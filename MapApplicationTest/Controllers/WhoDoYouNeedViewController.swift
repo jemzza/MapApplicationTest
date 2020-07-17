@@ -8,121 +8,200 @@
 
 import UIKit
 
-struct cellData {
-  var opened = Bool()
-  var title = String()
-  var sectionData = [String]()
-}
-
 class WhoDoYouNeedViewController: UIViewController {
   
-  var dataTable = [cellData]()
-  let dataWeight = ["50-55",
-                    "55-60",
-                    "60-65",
-                    "65-70",
-                    "70-75",
-                    "75-80",
-                    "80-85",
-                    "85-90",
-                    "90-95",
-                    "95-100",
-                    "105-110",
-  ]
+  @IBOutlet weak var imageViewBackgound: UIImageView!
+  @IBOutlet weak var textField1Gender: UITextField!
+  @IBOutlet weak var textField2Age: UITextField!
+  @IBOutlet weak var textField3Weight: UITextField!
+  @IBOutlet weak var textField4Interests: UITextField!
   
-  let dataAge = ["20-25",
-                    "25-30",
-                    "30-35",
-                    "35-40",
-                    "40-45",
-                    "50-55",
-                    "55-60",
-  ]
-    
-  @IBOutlet weak var tableView: UITableView!
-  @IBOutlet weak var nextButton: UIButton!
-  let picker = UIPickerView()
+  let pickerView = UIPickerView()
+  var arrayOfGender = ["Мужской",
+                       "Женский"]
+  var arrayOfAges = ["20-25",
+                     "25-30",
+                     "30-35",
+                     "35-40",
+                     "40-45",
+                     "50-55",
+                     "55-60",]
+  var arrayOfWeight = ["50-55",
+                       "55-60",
+                       "60-65",
+                       "65-70",
+                       "70-75",
+                       "75-80",
+                       "80-85",
+                       "85-90",
+                       "90-95",
+                       "95-100",
+                       "105-110",]
+  var arrayOfInterests = ["Почитать книгу",
+                          "Посмотреть кино",
+                          "Помочь по дому",
+                          "Прогулка",
+                          "Cходить в кино",
+                          "Другое"]
+  var activeTextField = 0
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    dataTable = [cellData(opened: false, title: "Пол", sectionData: ["Мужчина", "Женщина"]),
-            cellData(opened: false, title: "Возраст", sectionData: ["Пикер"]),
-            cellData(opened: false, title: "Вес", sectionData: ["Пикер"]),
-            cellData(opened: false, title: "Интересы", sectionData: ["Почитать книгу", "Посмотреть кино", "Помочь по дому", "Прогулка", "Cходить в кино", "Другое"])
-    ]
-    tableView.tableFooterView = UIView()
+    setupView()
+    
+    textField1Gender.delegate = self
+    textField2Age.delegate = self
+    textField3Weight.delegate = self
+    textField4Interests.delegate = self
+  }
+  
+  private func setupView() {
+    
+    textField1Gender.backgroundColor = UIColor(white: 1, alpha: 0.3)
+    textField2Age.backgroundColor = UIColor(white: 1, alpha: 0.3)
+    textField3Weight.backgroundColor = UIColor(white: 1, alpha: 0.3)
+    textField4Interests.backgroundColor = UIColor(white: 1, alpha: 0.3)
+    
+    view.backgroundColor = UIColor(white: 1, alpha: 0.1)
+    imageViewBackgound.blurImage()
+    
+    createPickerView()
+    createToolbar()
+  }
+  
+  private func createPickerView() {
+    pickerView.delegate = self
+    pickerView.delegate?.pickerView?(pickerView, didSelectRow: 0, inComponent: 0)
+    textField1Gender.inputView = pickerView
+    textField2Age.inputView = pickerView
+    textField3Weight.inputView = pickerView
+    textField4Interests.inputView = pickerView
+    
+    pickerView.backgroundColor = UIColor.white
+  }
+  
+  private func createToolbar() {
+    let toolbar = UIToolbar()
+    toolbar.sizeToFit()
+    toolbar.tintColor = UIColor.systemBlue
+    toolbar.backgroundColor = UIColor.white
+    let doneButton = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(WhoDoYouNeedViewController.closePickerView))
+    toolbar.setItems([doneButton], animated: false)
+    toolbar.isUserInteractionEnabled = true
+    
+    textField1Gender.inputAccessoryView = toolbar
+    textField2Age.inputAccessoryView = toolbar
+    textField3Weight.inputAccessoryView = toolbar
+    textField4Interests.inputAccessoryView = toolbar
+  }
+  
+  @objc func closePickerView() {
+    view.endEditing(true)
   }
 }
 
-extension WhoDoYouNeedViewController:  UITableViewDelegate, UITableViewDataSource {
-  
-  func numberOfSections(in tableView: UITableView) -> Int {
-    return dataTable.count
-  }
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if dataTable[section].opened == true {
-      return dataTable[section].sectionData.count + 1
-    } else {
-      return 1
-    }
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-    if indexPath.row == 0 {
-      
-      guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") else { return UITableViewCell() }
-      cell.textLabel?.text = dataTable[indexPath.section].title
-      return cell
-      
-    } else {
-      if indexPath.section == 1 || indexPath.section == 2  {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithPicker") else { return UITableViewCell() }
-        cell.heightAnchor.constraint(equalToConstant: 150).isActive = true
-//        cell.textLabel?.text = dataTable[indexPath.section].sectionData[indexPath.row - 1]
-        return cell
-      }
-      guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") else { return UITableViewCell() }
-      cell.textLabel?.text = dataTable[indexPath.section].sectionData[indexPath.row - 1]
-      return cell
-    }
-    
-    
-    
-    }
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-    if dataTable[indexPath.section].opened == true {
-      dataTable[indexPath.section].opened = false
-      
-      if indexPath.row != 0 {
-        dataTable[indexPath.section].title = dataTable[indexPath.section].sectionData[indexPath.row - 1]
-      }
-      
-      let sections = IndexSet.init(integer: indexPath.section)
-      tableView.reloadSections(sections, with: .none)
-      
-    } else {
-      dataTable[indexPath.section].opened = true
-      
-      let sections = IndexSet.init(integer: indexPath.section)
-      tableView.reloadSections(sections, with: .none)
-    }
-  }
-}
-
-extension WhoDoYouNeedViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension WhoDoYouNeedViewController: UIPickerViewDataSource, UIPickerViewDelegate {
   
   func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
   }
   
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return 2
+    
+    switch activeTextField
+    {
+    case 1:
+      return arrayOfGender.count
+    case 2:
+      return arrayOfAges.count
+    case 3:
+      return arrayOfWeight.count
+    case 4:
+      return arrayOfInterests.count
+      
+    default:
+      print("Undefined")
+      return 0
+    }
   }
   
+  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    
+    switch activeTextField {
+    case 1:
+      return arrayOfGender[row]
+    case 2:
+      return arrayOfAges[row]
+    case 3:
+      return arrayOfWeight[row]
+    case 4:
+      return arrayOfInterests[row]
+    default:
+      print("Undefined")
+      return "Undefined"
+    }
+    
+  }
   
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    
+    switch activeTextField {
+      
+    case 1:
+      textField1Gender.text =  arrayOfGender[row]
+      break
+      
+    case 2:
+      textField2Age.text = arrayOfAges[row]
+      break
+      
+    case 3:
+      textField3Weight.text = arrayOfWeight[row]
+      break
+      
+    case 4:
+      textField4Interests.text = arrayOfInterests[row]
+      break
+    default:
+      print("Undefined")
+    }
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+    return 100.0
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    return 60.0
+  }
+}
+
+extension WhoDoYouNeedViewController: UITextFieldDelegate {
+  
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    
+    switch textField {
+      
+    case textField1Gender:
+      activeTextField = 1
+      pickerView.reloadAllComponents()
+      
+    case textField2Age:
+      activeTextField = 2
+      pickerView.reloadAllComponents()
+      
+    case textField3Weight:
+      activeTextField = 3
+      pickerView.reloadAllComponents()
+      
+    case textField4Interests:
+      activeTextField = 4
+      pickerView.reloadAllComponents()
+      
+    default:
+      print("undefined")
+    }
+    
+  }
 }
