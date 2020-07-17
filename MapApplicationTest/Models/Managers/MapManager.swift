@@ -17,6 +17,34 @@ class MapManager {
   private let regionInMeters = 1_000.00
   private var directionsArray: [MKDirections] = []
   
+  func setupMark(string: String?, mapView: MKMapView) {
+      
+      guard let location = string else { return }
+      
+      let geocoder = CLGeocoder()
+      geocoder.geocodeAddressString(location) { (placemarks, error) in
+          if let error = error {
+              print(error)
+              return
+          }
+
+          guard let placemarks = placemarks else { return }
+
+          let placemark = placemarks.first
+
+          let annotation = MKPointAnnotation()
+          annotation.title = location
+          annotation.subtitle = "Поиск"
+
+          guard let placemarkLocation = placemark?.location else { return }
+
+          annotation.coordinate = placemarkLocation.coordinate
+          self.placeCoordinate = placemarkLocation.coordinate
+
+          mapView.showAnnotations([annotation], animated: true)
+          mapView.selectAnnotation(annotation, animated: true)
+      }
+  }
   
   //Checking the availability of geolocation services
   func checkLocationServices(mapView: MKMapView, segueIdentifier: String, closure: () -> ()) {

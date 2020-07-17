@@ -8,13 +8,9 @@
 
 import UIKit
 
-protocol MapViewControllerDelegate {
-    func getAddress(_ address: String?)
-}
-
 class EnteringAddressViewController: UIViewController {
   
-  var mapViewControllerDelegate: MapViewControllerDelegate?
+  weak var delegate: MapViewControllerDelegate?
   let blurredBackground = UIImageView()
   
   let nameLabel: UILabel = {
@@ -97,7 +93,7 @@ class EnteringAddressViewController: UIViewController {
   @objc
   func doneButtonPressed() {
     print("action doneButtonPressed \n  Begin search location...")
-    mapViewControllerDelegate?.getAddress(addressTextField.text)
+    delegate?.getAddress(addressTextField.text!)
     self.dismiss(animated: true, completion: nil)
   }
   

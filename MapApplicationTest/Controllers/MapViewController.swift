@@ -7,8 +7,11 @@
 //
 
 import UIKit
-import CoreLocation
 import MapKit
+
+protocol MapViewControllerDelegate: class {
+  func getAddress(_ address: String?)
+}
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
   
@@ -19,17 +22,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   var interests = [Interest]()
   var duration: Duration?
   
-//  let annotaionIdentifier = "annotaionIdentifier"
+  //  let annotaionIdentifier = "annotaionIdentifier"
   
   var previousLocation: CLLocation? {
-      didSet {
-          mapManager.startTrackingUserLocation(for: mapView, and: previousLocation) { (currentLocation) in
-              self.previousLocation = currentLocation
-              DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                  self.mapManager.showUserLocation(mapView: self.mapView)
-              }
-          }
+    didSet {
+      mapManager.startTrackingUserLocation(for: mapView, and: previousLocation) { (currentLocation) in
+        self.previousLocation = currentLocation
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+          self.mapManager.showUserLocation(mapView: self.mapView)
+        }
       }
+    }
   }
   
   @IBOutlet weak var mapView: MKMapView!
@@ -82,11 +85,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     print("Show text field for enter new address by user")
     
     let enteringAddressVC = EnteringAddressViewController()
+    enteringAddressVC.delegate = self
     present(enteringAddressVC, animated: true, completion: nil)
   }
   
   @IBAction func nextButtonPressed(_ sender: UIButton) {
     print("Show form for creating new order")
+    guard let address = addressLabel.text else {
+      print("Выберите адрес")
+      return
+    }
+    
+    order.location = address
+    print("Выбран адрес: \(address)")
   }
   
   //MARK: - Logic
@@ -141,54 +152,73 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 
 extension MapViewController: MKMapViewDelegate {
   
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        
-        let center = mapManager.getCenterLocation(for: mapView)
-        let geocoder = CLGeocoder()
-        
-        if previousLocation != nil {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                self.mapManager.showUserLocation(mapView: self.mapView)
-            }
-        }
-        
-        // Отмена отложенного запроса для освобождения ресурсов
-        geocoder.cancelGeocode()
-        
-        geocoder.reverseGeocodeLocation(center) { (placemarks, error) in
-            
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            guard let placemarks = placemarks else { return }
-            
-            let placemark = placemarks.first
-            let streetName = placemark?.thoroughfare
-            let buildNumber = placemark?.subThoroughfare
-            
-            DispatchQueue.main.async {
-                if streetName != nil && buildNumber != nil {
-                    self.addressLabel.text = "\(streetName!), \(buildNumber!)"
-                } else if streetName != nil {
-                    self.addressLabel.text = "\(streetName!)"
-                } else {
-                    self.addressLabel.text = ""
-                }
-            }
-        }
+  func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    
+    let center = mapManager.getCenterLocation(for: mapView)
+    let geocoder = CLGeocoder()
+    
+    if previousLocation != nil {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        self.mapManager.showUserLocation(mapView: self.mapView)
+      }
     }
     
+    // Отмена отложенного запроса для освобождения ресурсов
+    geocoder.cancelGeocode()
+    
+    geocoder.reverseGeocodeLocation(center) { (placemarks, error) in
+      
+      if let error = error {
+        print(error)
+        return
+      }
+      
+      guard let placemarks = placemarks else { return }
+      
+      let placemark = placemarks.first
+      let streetName = placemark?.thoroughfare
+      let buildNumber = placemark?.subThoroughfare
+      
+      DispatchQueue.main.async {
+        if streetName != nil && buildNumber != nil {
+          self.addressLabel.text = "\(streetName!), \(buildNumber!)"
+        } else if streetName != nil {
+          self.addressLabel.text = "\(streetName!)"
+        } else {
+          self.addressLabel.text = ""
+        }
+      }
+    }
+  }
+  
 }
 
 extension MapViewController: MapViewControllerDelegate {
+  
+  func getAddress(_ address: String?) {
+    addressForSearch = address!
+    print(addressForSearch)
+    mapManager.setupMark(string: address, mapView: mapView)
+  }
+  
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+//
+//        if annotationView == nil {
+//          annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+//        }
+//
+//        annotationView?.image = UIImage(named: "pinRed")
+        return nil
+  }
+  
+  
+  
+  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    print("the annotation was selected \(String(describing: view.annotation?.title))")
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     
-    func getAddress(_ address: String?) {
-      
-      if let address = address {
-        addressForSearch = address
-        print("addressForSearch = \(addressForSearch)")
-      }
-    }
+  }
 }
