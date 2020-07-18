@@ -37,6 +37,7 @@
 		A26B6E9C24C0633700902F66 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6E9B24C0633700902F66 /* User.swift */; };
 		A26B6E9E24C066C400902F66 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6E9D24C066C400902F66 /* MapManager.swift */; };
 		A26B6EA224C09CE100902F66 /* EnteringAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6EA124C09CE100902F66 /* EnteringAddressViewController.swift */; };
+		A26F87A124C38B4D0071E1BF /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26F87A024C38B4D0071E1BF /* Parameters.swift */; };
 		A2D11A3624C3183B00707C14 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D11A3524C3183B00707C14 /* StorageManager.swift */; };
 		B1016FFEE11FF5AED0EC6A16 /* Pods_MapApplicationTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EA20E7247BF2A6E77B074EF /* Pods_MapApplicationTestTests.framework */; };
 /* End PBXBuildFile section */
@@ -100,6 +101,7 @@
 		A26B6E9B24C0633700902F66 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A26B6E9D24C066C400902F66 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		A26B6EA124C09CE100902F66 /* EnteringAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnteringAddressViewController.swift; sourceTree = "<group>"; };
+		A26F87A024C38B4D0071E1BF /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		A2D11A3524C3183B00707C14 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		B3154DE125232BBC698CB2BC /* Pods-MapApplicationTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApplicationTest.release.xcconfig"; path = "Target Support Files/Pods-MapApplicationTest/Pods-MapApplicationTest.release.xcconfig"; sourceTree = "<group>"; };
 		D6E9C22424C93A9A53E3081B /* Pods-MapApplicationTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApplicationTest.debug.xcconfig"; path = "Target Support Files/Pods-MapApplicationTest/Pods-MapApplicationTest.debug.xcconfig"; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 			children = (
 				A26B6E9B24C0633700902F66 /* User.swift */,
 				A227AB2E24C03D8B00B3E1A0 /* Order.swift */,
+				A26F87A024C38B4D0071E1BF /* Parameters.swift */,
 				A26B6E9724C0514F00902F66 /* FactoryInterests.swift */,
 				A26B6E9924C053C300902F66 /* FactoryDuration.swift */,
 				A227AB4824C046F100B3E1A0 /* Duration */,
@@ -526,6 +529,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A26F87A124C38B4D0071E1BF /* Parameters.swift in Sources */,
 				A227AB2F24C03D8B00B3E1A0 /* Order.swift in Sources */,
 				A227AB3624C042BE00B3E1A0 /* WatchAFilm.swift in Sources */,
 				A227AB4324C0461A00B3E1A0 /* DurationFirst.swift in Sources */,

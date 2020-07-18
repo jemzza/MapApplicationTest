@@ -31,17 +31,9 @@ class MapManager {
       
       let placemark = placemarks.first
       
-      let annotation = MKPointAnnotation()
-      annotation.title = location
-      annotation.subtitle = "Поиск"
-      
       guard let placemarkLocation = placemark?.location else { return }
       
-      annotation.coordinate = placemarkLocation.coordinate
-      self.placeCoordinate = placemarkLocation.coordinate
-      
-      mapView.showAnnotations([annotation], animated: true)
-      mapView.selectAnnotation(annotation, animated: true)
+      mapView.centerCoordinate = placemarkLocation.coordinate
     }
   }
   
@@ -69,7 +61,7 @@ class MapManager {
       let calendar = Calendar.current
       guard let dateOfEnd = calendar.date(byAdding: .hour, value: duration, to: date) else { return }
       
-      guard Date() >= dateOfEnd else { return }
+      guard Date() <= dateOfEnd else { return }
       guard let substractionInHours = calendar.dateComponents([.hour], from: date, to: dateOfEnd).hour else { return }
       
       annotation.title = "\(interest). \(gender). Возраст: \(age). Вес: \(weight)."

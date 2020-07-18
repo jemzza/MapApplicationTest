@@ -10,7 +10,7 @@ import Foundation
 
 class DurationThird: Duration {
   
-  var name: String = "Тариф 3 часа"
+  var name: String = "3 часа"
   
   var hours: Int = 3
   

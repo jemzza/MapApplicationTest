@@ -54,29 +54,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     mapView.delegate = self
     
     orders = realm.objects(Order.self)
-    orders.forEach({ print("orders location: \($0.location)") })
+    orders.forEach({ print("Orders location: \($0.location ?? "Kek")") })
     orders.forEach { (order) in
       mapManager.setupOrder(order: order, mapView: mapView)
     }
-    
-    /*
-    order.location = "Москва"
-    order.gender = "Мужской"
-    order.age = "20-25"
-    order.weight = "40-45"
-    
-    addInterest()
-    createIntrest(nameOfInterest: .read)
-    createIntrest(nameOfInterest: .read)
-    createIntrest(nameOfInterest: .shop)
-    addInterest()
-    
-    addDuration()
-    createDuration(nameOfDuration: .twoHour)
-    createDuration(nameOfDuration: .oneHour)
-    createDuration(nameOfDuration: .threeHour)
-    addDuration()
-    */
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -102,7 +83,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     guard segue.identifier == "showWhoDoYouNeed" else { return }
     guard let destination = segue.destination as? WhoDoYouNeedViewController else { return }
-
+    
     guard addressLabel.text != "" else {
       print("Choose address")
       return
@@ -115,44 +96,44 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   //MARK: - Logic
   /*
-  func createIntrest(nameOfInterest: Interests) {
-    
-    let newInterest = FactoryInterests.shared.createInterest(interest: nameOfInterest)
-    
-    if let index = interests.enumerated().first(where: { $0.element.name == newInterest.name })?.offset {
-      interests.remove(at: index)
-    } else {
-      interests.append(newInterest)
-    }
-  }
-  
-  func addInterest() {
-    
-    guard interests.count != 0 else {
-      print("Pls add some interests")
-      return
-    }
-    
-    order.interests = interests
-    interests.forEach({ $0.add() })
-  }
-  
-  func createDuration(nameOfDuration: Durations) {
-    
-    let newDuration = FactoryDuration.shared.createDuration(duration: nameOfDuration)
-    duration = newDuration
-  }
-  
-  func addDuration() {
-    
-    guard let duration = duration else {
-      print("Pls choose tariff")
-      return
-    }
-    order.duration = duration
-    duration.add()
-  }
-  */
+   func createIntrest(nameOfInterest: Interests) {
+   
+   let newInterest = FactoryInterests.shared.createInterest(interest: nameOfInterest)
+   
+   if let index = interests.enumerated().first(where: { $0.element.name == newInterest.name })?.offset {
+   interests.remove(at: index)
+   } else {
+   interests.append(newInterest)
+   }
+   }
+   
+   func addInterest() {
+   
+   guard interests.count != 0 else {
+   print("Pls add some interests")
+   return
+   }
+   
+   order.interests = interests
+   interests.forEach({ $0.add() })
+   }
+   
+   func createDuration(nameOfDuration: Durations) {
+   
+   let newDuration = FactoryDuration.shared.createDuration(duration: nameOfDuration)
+   duration = newDuration
+   }
+   
+   func addDuration() {
+   
+   guard let duration = duration else {
+   print("Pls choose tariff")
+   return
+   }
+   order.duration = duration
+   duration.add()
+   }
+   */
   
   //MARK: - Set up View
   
@@ -216,16 +197,15 @@ extension MapViewController: MapViewControllerDelegate {
   }
   
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+    var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
     
-            if annotationView == nil {
-              annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-            }
+    if annotationView == nil {
+      annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+    }
     
-            annotationView?.image = UIImage(named: "pinRed")
+//    annotationView?.image = UIImage(named: "pinRed")
     return nil
   }
-  
   
   
   func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {

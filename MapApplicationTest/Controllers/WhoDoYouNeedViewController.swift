@@ -11,6 +11,13 @@ import UIKit
 class WhoDoYouNeedViewController: UIViewController {
   
   var dataAddress: String?
+  let properties = Parameters.shared
+  
+  let arrayOfGender = Parameters.shared.getGender()
+  let arrayOfAges = Parameters.shared.getAge()
+  let arrayOfWeight = Parameters.shared.getWeight()
+  let arrayOfInterests = Parameters.shared.getInterests()
+  let arrayOfDuration = Parameters.shared.getDuration()
   
   @IBOutlet weak var imageViewBackground: UIImageView!
   @IBOutlet weak var textFieldGender: UITextField!
@@ -21,35 +28,6 @@ class WhoDoYouNeedViewController: UIViewController {
   @IBOutlet weak var createOrderButton: UIButton!
   
   let pickerView = UIPickerView()
-  var arrayOfGender = ["Мужской",
-                       "Женский"]
-  var arrayOfAges = ["20-25",
-                     "25-30",
-                     "30-35",
-                     "35-40",
-                     "40-45",
-                     "50-55",
-                     "55-60",]
-  var arrayOfWeight = ["50-55",
-                       "55-60",
-                       "60-65",
-                       "65-70",
-                       "70-75",
-                       "75-80",
-                       "80-85",
-                       "85-90",
-                       "90-95",
-                       "95-100",
-                       "105-110",]
-  var arrayOfInterests = ["Почитать книгу",
-                          "Посмотреть кино",
-                          "Помочь по дому",
-                          "Прогулка",
-                          "Cходить в кино",
-                          "Другое"]
-  var arrayOfDuration = ["1 час",
-                         "2 часа",
-                         "3 часа",]
   var activeTextField = 0
   
   override func viewDidLoad() {
@@ -81,46 +59,8 @@ class WhoDoYouNeedViewController: UIViewController {
       }
       
       StorageManager.saveObject(newOrder)
+      print("### Заказ успешно размещен")
       
-      /*
-      switch gender {
-      case "Мужской":
-        order.gender = .male
-      default:
-        order.gender = .female
-      }
-      
-      order.age = age
-      order.weight = weight
-      
-      switch interest {
-      case "Почитать книгу":
-        order.interests?.append(ReadABook())
-      case "Посмотреть кино":
-        order.interests?.append(WatchAFilm())
-      case "Помочь по дому":
-        order.interests?.append(HelpWithTheApartment())
-      case "Прогулка":
-        order.interests?.append(Walking())
-      case "Cходить в магазин":
-        order.interests?.append(GoToShopping())
-      default:
-        order.interests?.append(Different(name: textFieldInterests.text!))
-      }
-      
-      switch duration {
-      case "1 час":
-        order.duration = DurationFirst()
-      case "2 часа":
-        order.duration = DurationSecond()
-      default:
-        order.duration = DurationThird()
-      }
-      */
-      print("### Заказ создан ###")
-      
-      
-        
       dismiss(animated: true, completion: nil)
       
     } else {
@@ -195,15 +135,15 @@ extension WhoDoYouNeedViewController: UIPickerViewDataSource, UIPickerViewDelega
     switch activeTextField
     {
     case 1:
-      return arrayOfGender.count
+      return properties.countOfGender()
     case 2:
-      return arrayOfAges.count
+      return properties.countOfAge()
     case 3:
-      return arrayOfWeight.count
+      return properties.countOfWeight()
     case 4:
-      return arrayOfInterests.count
+      return properties.countOfInterests()
     case 5:
-      return arrayOfDuration.count
+      return properties.countOfDuration()
     default:
       print("Undefined")
       return 0

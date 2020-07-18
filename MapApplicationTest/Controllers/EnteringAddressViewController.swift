@@ -9,7 +9,7 @@
 import UIKit
 
 class EnteringAddressViewController: UIViewController {
-  
+
   weak var delegate: MapViewControllerDelegate?
   let blurredBackground = UIImageView()
   
