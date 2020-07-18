@@ -54,8 +54,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     order.location = "Москва"
     order.gender = .male
-    order.age = 20
-    order.weight = 50
+    order.age = "20-25"
+    order.weight = "40-45"
     
     addInterest()
     createIntrest(nameOfInterest: .read)
@@ -89,15 +89,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     present(enteringAddressVC, animated: true, completion: nil)
   }
   
-  @IBAction func nextButtonPressed(_ sender: UIButton) {
-    print("Show form for creating new order")
-    guard let address = addressLabel.text else {
-      print("Выберите адрес")
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    guard segue.identifier == "showWhoDoYouNeed" else { return }
+    guard let destination = segue.destination as? WhoDoYouNeedViewController else { return }
+
+    guard addressLabel.text != "" else {
+      print("Choose address")
       return
     }
     
-    order.location = address
-    print("Выбран адрес: \(address)")
+    var order = Order()
+    order.location = addressLabel.text!
+    destination.order = order
+    
+    print("адрес: \(destination.order.location)")
   }
   
   //MARK: - Logic
@@ -198,18 +204,18 @@ extension MapViewController: MapViewControllerDelegate {
   func getAddress(_ address: String?) {
     addressForSearch = address!
     print(addressForSearch)
-    mapManager.setupMark(string: address, mapView: mapView)
+    mapManager.searchPlace(string: address, mapView: mapView)
   }
   
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
-//
-//        if annotationView == nil {
-//          annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-//        }
-//
-//        annotationView?.image = UIImage(named: "pinRed")
-        return nil
+    //        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+    //
+    //        if annotationView == nil {
+    //          annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+    //        }
+    //
+    //        annotationView?.image = UIImage(named: "pinRed")
+    return nil
   }
   
   

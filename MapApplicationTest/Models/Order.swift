@@ -11,19 +11,19 @@ import Foundation
 struct Order {
   
   var id: String!
-  var location: String?
+  var location: String
   var gender: Gender
-  var age: Int
-  var weight: Int
+  var age: String
+  var weight: String
   var date = Date()
   var interests: [Interest]?
   var duration: Duration?
   
   init() {
-    location = nil
+    location = ""
     gender = .male
-    age = 0
-    weight = 4
+    age = ""
+    weight = ""
     interests = nil
     duration = nil
   }

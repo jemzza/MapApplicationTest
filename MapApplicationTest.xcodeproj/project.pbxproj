@@ -30,7 +30,6 @@
 		A227AB4A24C0476500B3E1A0 /* DurationSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AB4924C0476500B3E1A0 /* DurationSecond.swift */; };
 		A235A6B724C1BB1600193965 /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A235A6B624C1BB1600193965 /* CustomPointAnnotation.swift */; };
 		A235A6B924C1C25B00193965 /* WhoDoYouNeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A235A6B824C1C25B00193965 /* WhoDoYouNeedViewController.swift */; };
-		A235A6BB24C1C27C00193965 /* DurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A235A6BA24C1C27C00193965 /* DurationViewController.swift */; };
 		A26B6E9824C0514F00902F66 /* FactoryInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6E9724C0514F00902F66 /* FactoryInterests.swift */; };
 		A26B6E9A24C053C300902F66 /* FactoryDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6E9924C053C300902F66 /* FactoryDuration.swift */; };
 		A26B6E9C24C0633700902F66 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6E9B24C0633700902F66 /* User.swift */; };
@@ -85,7 +84,6 @@
 		A227AB4924C0476500B3E1A0 /* DurationSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationSecond.swift; sourceTree = "<group>"; };
 		A235A6B624C1BB1600193965 /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
 		A235A6B824C1C25B00193965 /* WhoDoYouNeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoDoYouNeedViewController.swift; sourceTree = "<group>"; };
-		A235A6BA24C1C27C00193965 /* DurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationViewController.swift; sourceTree = "<group>"; };
 		A26B6E9724C0514F00902F66 /* FactoryInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryInterests.swift; sourceTree = "<group>"; };
 		A26B6E9924C053C300902F66 /* FactoryDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryDuration.swift; sourceTree = "<group>"; };
 		A26B6E9B24C0633700902F66 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -195,7 +193,6 @@
 				A227AB2924C03C3400B3E1A0 /* MapViewController.swift */,
 				A26B6EA124C09CE100902F66 /* EnteringAddressViewController.swift */,
 				A235A6B824C1C25B00193965 /* WhoDoYouNeedViewController.swift */,
-				A235A6BA24C1C27C00193965 /* DurationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -398,7 +395,6 @@
 				A227AB4124C0450B00B3E1A0 /* Duration.swift in Sources */,
 				A26B6E9E24C066C400902F66 /* MapManager.swift in Sources */,
 				A227AB3224C03F0D00B3E1A0 /* Interest.swift in Sources */,
-				A235A6BB24C1C27C00193965 /* DurationViewController.swift in Sources */,
 				A227AAF924C03BE500B3E1A0 /* SceneDelegate.swift in Sources */,
 				A26B6E9C24C0633700902F66 /* User.swift in Sources */,
 				A26B6EA224C09CE100902F66 /* EnteringAddressViewController.swift in Sources */,

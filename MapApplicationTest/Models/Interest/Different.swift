@@ -13,10 +13,14 @@ class Different: Interest {
   var name: String = "Другое"
   
   func add() {
-    print("Интерес /Другое/ добален в заказ")
+    print("Интерес /\(name)/ добален в заказ")
   }
   
   func delete() {
-    print("Интерес /Другое/ удален из заказа")
+    print("Интерес /\(name)/ удален из заказа")
+  }
+  
+  init(name: String) {
+    self.name = name
   }
 }

@@ -10,11 +10,15 @@ import UIKit
 
 class WhoDoYouNeedViewController: UIViewController {
   
-  @IBOutlet weak var imageViewBackgound: UIImageView!
-  @IBOutlet weak var textField1Gender: UITextField!
-  @IBOutlet weak var textField2Age: UITextField!
-  @IBOutlet weak var textField3Weight: UITextField!
-  @IBOutlet weak var textField4Interests: UITextField!
+  var order: Order!
+  
+  @IBOutlet weak var imageViewBackground: UIImageView!
+  @IBOutlet weak var textFieldGender: UITextField!
+  @IBOutlet weak var textFieldAge: UITextField!
+  @IBOutlet weak var textFieldWeight: UITextField!
+  @IBOutlet weak var textFieldInterests: UITextField!
+  @IBOutlet weak var textFieldDuration: UITextField!
+  @IBOutlet weak var createOrderButton: UIButton!
   
   let pickerView = UIPickerView()
   var arrayOfGender = ["Мужской",
@@ -43,6 +47,9 @@ class WhoDoYouNeedViewController: UIViewController {
                           "Прогулка",
                           "Cходить в кино",
                           "Другое"]
+  var arrayOfDuration = ["1 час",
+                         "2 часа",
+                         "3 часа",]
   var activeTextField = 0
   
   override func viewDidLoad() {
@@ -50,21 +57,73 @@ class WhoDoYouNeedViewController: UIViewController {
     
     setupView()
     
-    textField1Gender.delegate = self
-    textField2Age.delegate = self
-    textField3Weight.delegate = self
-    textField4Interests.delegate = self
+    textFieldGender.delegate = self
+    textFieldAge.delegate = self
+    textFieldWeight.delegate = self
+    textFieldInterests.delegate = self
+    textFieldDuration.delegate = self
+  }
+  @IBAction func createOrderButtonPressed(_ sender: UIButton) {
+    
+    if textFieldGender.text != "" && textFieldAge.text != "" && textFieldWeight.text != "" && textFieldInterests.text != "" && textFieldDuration.text != "" {
+      
+      guard let gender = textFieldGender.text, let age = textFieldAge.text, let weight = textFieldWeight.text, let interest = textFieldInterests.text, let duration = textFieldDuration.text else { return }
+      
+      switch gender {
+      case "Мужской":
+        order.gender = .male
+      default:
+        order.gender = .female
+      }
+      
+      order.age = age
+      order.weight = weight
+      
+      switch interest {
+      case "Почитать книгу":
+        order.interests?.append(ReadABook())
+      case "Посмотреть кино":
+        order.interests?.append(WatchAFilm())
+      case "Помочь по дому":
+        order.interests?.append(HelpWithTheApartment())
+      case "Прогулка":
+        order.interests?.append(Walking())
+      case "Cходить в магазин":
+        order.interests?.append(GoToShopping())
+      default:
+        order.interests?.append(Different(name: textFieldInterests.text!))
+      }
+      
+      switch duration {
+      case "1 час":
+        order.duration = DurationFirst()
+      case "2 часа":
+        order.duration = DurationSecond()
+      default:
+        order.duration = DurationThird()
+      }
+      
+      print("### Заказ создан ###")
+      
+      
+        
+      dismiss(animated: true, completion: nil)
+      
+    } else {
+      showAlert(title: "Не все поля заполнены", message: "Заполните, пожалуйста, все поля!")
+    }
   }
   
   private func setupView() {
     
-    textField1Gender.backgroundColor = UIColor(white: 1, alpha: 0.3)
-    textField2Age.backgroundColor = UIColor(white: 1, alpha: 0.3)
-    textField3Weight.backgroundColor = UIColor(white: 1, alpha: 0.3)
-    textField4Interests.backgroundColor = UIColor(white: 1, alpha: 0.3)
+    textFieldGender.backgroundColor = UIColor(white: 1, alpha: 0.3)
+    textFieldAge.backgroundColor = UIColor(white: 1, alpha: 0.3)
+    textFieldWeight.backgroundColor = UIColor(white: 1, alpha: 0.3)
+    textFieldInterests.backgroundColor = UIColor(white: 1, alpha: 0.3)
+    textFieldDuration.backgroundColor = UIColor(white: 1, alpha: 0.3)
     
     view.backgroundColor = UIColor(white: 1, alpha: 0.1)
-    imageViewBackgound.blurImage()
+    imageViewBackground.blurImage()
     
     createPickerView()
     createToolbar()
@@ -73,10 +132,11 @@ class WhoDoYouNeedViewController: UIViewController {
   private func createPickerView() {
     pickerView.delegate = self
     pickerView.delegate?.pickerView?(pickerView, didSelectRow: 0, inComponent: 0)
-    textField1Gender.inputView = pickerView
-    textField2Age.inputView = pickerView
-    textField3Weight.inputView = pickerView
-    textField4Interests.inputView = pickerView
+    textFieldGender.inputView = pickerView
+    textFieldAge.inputView = pickerView
+    textFieldWeight.inputView = pickerView
+    textFieldInterests.inputView = pickerView
+    textFieldDuration.inputView = pickerView
     
     pickerView.backgroundColor = UIColor.white
   }
@@ -90,10 +150,19 @@ class WhoDoYouNeedViewController: UIViewController {
     toolbar.setItems([doneButton], animated: false)
     toolbar.isUserInteractionEnabled = true
     
-    textField1Gender.inputAccessoryView = toolbar
-    textField2Age.inputAccessoryView = toolbar
-    textField3Weight.inputAccessoryView = toolbar
-    textField4Interests.inputAccessoryView = toolbar
+    textFieldGender.inputAccessoryView = toolbar
+    textFieldAge.inputAccessoryView = toolbar
+    textFieldWeight.inputAccessoryView = toolbar
+    textFieldInterests.inputAccessoryView = toolbar
+    textFieldDuration.inputAccessoryView = toolbar
+  }
+  
+  private func showAlert(title: String, message: String) {
+    
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+    alert.addAction(okAction)
+    self.present(alert, animated: true, completion: nil)
   }
   
   @objc func closePickerView() {
@@ -119,7 +188,8 @@ extension WhoDoYouNeedViewController: UIPickerViewDataSource, UIPickerViewDelega
       return arrayOfWeight.count
     case 4:
       return arrayOfInterests.count
-      
+    case 5:
+      return arrayOfDuration.count
     default:
       print("Undefined")
       return 0
@@ -137,6 +207,8 @@ extension WhoDoYouNeedViewController: UIPickerViewDataSource, UIPickerViewDelega
       return arrayOfWeight[row]
     case 4:
       return arrayOfInterests[row]
+    case 5:
+      return arrayOfDuration[row]
     default:
       print("Undefined")
       return "Undefined"
@@ -149,31 +221,34 @@ extension WhoDoYouNeedViewController: UIPickerViewDataSource, UIPickerViewDelega
     switch activeTextField {
       
     case 1:
-      textField1Gender.text =  arrayOfGender[row]
+      textFieldGender.text =  arrayOfGender[row]
       break
       
     case 2:
-      textField2Age.text = arrayOfAges[row]
+      textFieldAge.text = arrayOfAges[row]
       break
       
     case 3:
-      textField3Weight.text = arrayOfWeight[row]
+      textFieldWeight.text = arrayOfWeight[row]
       break
       
     case 4:
-      textField4Interests.text = arrayOfInterests[row]
+      textFieldInterests.text = arrayOfInterests[row]
       break
+      
+    case 5:
+      textFieldDuration.text = arrayOfDuration[row]
     default:
       print("Undefined")
     }
   }
   
   func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-    return 100.0
+    return 300.0
   }
   
   func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-    return 60.0
+    return 30.0
   }
 }
 
@@ -183,20 +258,24 @@ extension WhoDoYouNeedViewController: UITextFieldDelegate {
     
     switch textField {
       
-    case textField1Gender:
+    case textFieldGender:
       activeTextField = 1
       pickerView.reloadAllComponents()
       
-    case textField2Age:
+    case textFieldAge:
       activeTextField = 2
       pickerView.reloadAllComponents()
       
-    case textField3Weight:
+    case textFieldWeight:
       activeTextField = 3
       pickerView.reloadAllComponents()
       
-    case textField4Interests:
+    case textFieldInterests:
       activeTextField = 4
+      pickerView.reloadAllComponents()
+      
+    case textFieldDuration:
+      activeTextField = 5
       pickerView.reloadAllComponents()
       
     default:
