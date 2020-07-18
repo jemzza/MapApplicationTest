@@ -52,8 +52,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     mapView.delegate = self
     
+    /*
     order.location = "Москва"
-    order.gender = .male
+    order.gender = "Мужской"
     order.age = "20-25"
     order.weight = "40-45"
     
@@ -68,6 +69,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     createDuration(nameOfDuration: .oneHour)
     createDuration(nameOfDuration: .threeHour)
     addDuration()
+    */
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -99,15 +101,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       return
     }
     
-    var order = Order()
-    order.location = addressLabel.text!
-    destination.order = order
+    destination.dataAddress = addressLabel.text!
     
-    print("адрес: \(destination.order.location)")
+    print("адрес: \(destination.dataAddress ?? "#Адрес не передался!!!")")
   }
   
   //MARK: - Logic
-  
+  /*
   func createIntrest(nameOfInterest: Interests) {
     
     let newInterest = FactoryInterests.shared.createInterest(interest: nameOfInterest)
@@ -145,6 +145,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     order.duration = duration
     duration.add()
   }
+  */
   
   //MARK: - Set up View
   

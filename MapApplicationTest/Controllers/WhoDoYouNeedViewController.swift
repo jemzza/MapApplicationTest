@@ -10,7 +10,7 @@ import UIKit
 
 class WhoDoYouNeedViewController: UIViewController {
   
-  var order: Order!
+  var dataAddress: String?
   
   @IBOutlet weak var imageViewBackground: UIImageView!
   @IBOutlet weak var textFieldGender: UITextField!
@@ -69,6 +69,20 @@ class WhoDoYouNeedViewController: UIViewController {
       
       guard let gender = textFieldGender.text, let age = textFieldAge.text, let weight = textFieldWeight.text, let interest = textFieldInterests.text, let duration = textFieldDuration.text else { return }
       
+      let newOrder = Order(gender: gender, age: age, weight: weight, interests: interest, duration: 0)
+      
+      switch duration {
+      case "1 час":
+        newOrder.duration = 1
+      case "2 часа":
+        newOrder.duration = 2
+      default:
+        newOrder.duration = 3
+      }
+      
+      StorageManager.saveObject(newOrder)
+      
+      /*
       switch gender {
       case "Мужской":
         order.gender = .male
@@ -102,7 +116,7 @@ class WhoDoYouNeedViewController: UIViewController {
       default:
         order.duration = DurationThird()
       }
-      
+      */
       print("### Заказ создан ###")
       
       
