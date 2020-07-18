@@ -69,7 +69,7 @@ class WhoDoYouNeedViewController: UIViewController {
       
       guard let gender = textFieldGender.text, let age = textFieldAge.text, let weight = textFieldWeight.text, let interest = textFieldInterests.text, let duration = textFieldDuration.text else { return }
       
-      let newOrder = Order(gender: gender, age: age, weight: weight, interests: interest, duration: 0)
+      let newOrder = Order(location: dataAddress ?? "Зеленоград", gender: gender, age: age, weight: weight, interests: interest, duration: 0)
       
       switch duration {
       case "1 час":

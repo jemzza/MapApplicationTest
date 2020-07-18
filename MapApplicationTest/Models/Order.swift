@@ -46,7 +46,7 @@ class Order: Object {
   @objc dynamic var duration: Int = 0
   @objc dynamic var date = Date()
   
-  convenience init(gender: String, age: String, weight: String, interests: String, duration: Int) {
+  convenience init(location: String, gender: String, age: String, weight: String, interests: String, duration: Int) {
     self.init()
     self.location = location
     self.gender = gender

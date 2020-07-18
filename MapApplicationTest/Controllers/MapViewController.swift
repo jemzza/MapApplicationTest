@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import RealmSwift
 
 protocol MapViewControllerDelegate: class {
   func getAddress(_ address: String?)
@@ -16,7 +17,7 @@ protocol MapViewControllerDelegate: class {
 class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   let mapManager = MapManager()
-  var order = Order()
+  private var orders: Results<Order>!
   var addressForSearch = ""
   
   var interests = [Interest]()
@@ -51,6 +52,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     mapView.userTrackingMode = .follow
     
     mapView.delegate = self
+    
+    orders = realm.objects(Order.self)
+    orders.forEach({ print("orders location: \($0.location)") })
+    orders.forEach { (order) in
+      mapManager.setupOrder(order: order, mapView: mapView)
+    }
     
     /*
     order.location = "Москва"
@@ -209,13 +216,13 @@ extension MapViewController: MapViewControllerDelegate {
   }
   
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    //        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
-    //
-    //        if annotationView == nil {
-    //          annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-    //        }
-    //
-    //        annotationView?.image = UIImage(named: "pinRed")
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+    
+            if annotationView == nil {
+              annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            }
+    
+            annotationView?.image = UIImage(named: "pinRed")
     return nil
   }
   

@@ -15,64 +15,72 @@ class MapManager {
   
   private var placeCoordinate: CLLocationCoordinate2D?
   private let regionInMeters = 1_000.00
-  private var directionsArray: [MKDirections] = []
   
   func searchPlace(string: String?, mapView: MKMapView) {
-      
-      guard let location = string else { return }
-      
-      let geocoder = CLGeocoder()
-      geocoder.geocodeAddressString(location) { (placemarks, error) in
-          if let error = error {
-              print(error)
-              return
-          }
-
-          guard let placemarks = placemarks else { return }
-
-          let placemark = placemarks.first
-
-          let annotation = MKPointAnnotation()
-          annotation.title = location
-          annotation.subtitle = "Поиск"
-
-          guard let placemarkLocation = placemark?.location else { return }
-
-          annotation.coordinate = placemarkLocation.coordinate
-          self.placeCoordinate = placemarkLocation.coordinate
-
-          mapView.showAnnotations([annotation], animated: true)
-          mapView.selectAnnotation(annotation, animated: true)
+    
+    guard let location = string else { return }
+    
+    let geocoder = CLGeocoder()
+    geocoder.geocodeAddressString(location) { (placemarks, error) in
+      if let error = error {
+        print(error)
+        return
       }
+      
+      guard let placemarks = placemarks else { return }
+      
+      let placemark = placemarks.first
+      
+      let annotation = MKPointAnnotation()
+      annotation.title = location
+      annotation.subtitle = "Поиск"
+      
+      guard let placemarkLocation = placemark?.location else { return }
+      
+      annotation.coordinate = placemarkLocation.coordinate
+      self.placeCoordinate = placemarkLocation.coordinate
+      
+      mapView.showAnnotations([annotation], animated: true)
+      mapView.selectAnnotation(annotation, animated: true)
+    }
   }
   
-  func setupOrder(string: String?, mapView: MKMapView) {
-      
-      guard let location = string else { return }
-      
-      let geocoder = CLGeocoder()
-      geocoder.geocodeAddressString(location) { (placemarks, error) in
-          if let error = error {
-              print(error)
-              return
-          }
-
-          guard let placemarks = placemarks else { return }
-
-          let placemark = placemarks.first
-
-          let annotation = MKPointAnnotation()
-          annotation.title = location
-          annotation.subtitle = "Поиск"
-
-          guard let placemarkLocation = placemark?.location else { return }
-
-          annotation.coordinate = placemarkLocation.coordinate
-          self.placeCoordinate = placemarkLocation.coordinate
-
-          mapView.showAnnotations([annotation], animated: true)
-          mapView.selectAnnotation(annotation, animated: true)
+  func setupOrder(order: Order, mapView: MKMapView) {
+    
+    guard let location = order.location else { return }
+    
+    let geocoder = CLGeocoder()
+    geocoder.geocodeAddressString(location) { (placemarks, error) in
+      if let error = error {
+        print(error)
+        return
       }
+      
+      guard let placemarks = placemarks else { return }
+      
+      let placemark = placemarks.first
+      
+      let annotation = MKPointAnnotation()
+      
+      guard let gender = order.gender, let age = order.age, let weight = order.weight, let interest = order.interests else { return }
+      let duration = order.duration
+      
+      let date = order.date
+      let calendar = Calendar.current
+      guard let dateOfEnd = calendar.date(byAdding: .hour, value: duration, to: date) else { return }
+      
+      guard Date() >= dateOfEnd else { return }
+      guard let substractionInHours = calendar.dateComponents([.hour], from: date, to: dateOfEnd).hour else { return }
+      
+      annotation.title = "\(interest). \(gender). Возраст: \(age). Вес: \(weight)."
+      annotation.subtitle = "Осталось часов: \(substractionInHours)"
+      
+      guard let placemarkLocation = placemark?.location else { return }
+      
+      annotation.coordinate = placemarkLocation.coordinate
+      
+      mapView.addAnnotation(annotation)
+    }
   }
   
   //Checking the availability of geolocation services
