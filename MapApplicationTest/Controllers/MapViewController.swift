@@ -50,8 +50,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     orders = realm.objects(Order.self)
     orders.forEach({ print("Orders location: \($0.location ?? "Kek")") })
-    orders.forEach { (order) in
-      mapManager.setupOrder(order: order, mapView: mapView)
+    
+    DispatchQueue.main.async {
+      self.orders.forEach { (order) in
+        self.mapManager.setupOrder(order: order, mapView: self.mapView)
+      }
     }
   }
   
@@ -74,20 +77,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     present(enteringAddressVC, animated: true, completion: nil)
   }
   
-//  @IBAction func nextButtonPressed(_ sender: UIButton) {
-//
-//    guard addressLabel.text != "" else {
-//          print("Choose address")
-//          return
-//        }
-//
-//    let whoDoYouNeedVC = WhoDoYouNeedViewController()
-//    whoDoYouNeedVC.delegate = self
-//    whoDoYouNeedVC.dataAddress = addressLabel.text!
-//    present(whoDoYouNeedVC, animated: true, completion: nil)
-//  }
-  
-  
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
     guard segue.identifier == "showWhoDoYouNeed" else { return }
@@ -99,6 +88,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     destination.dataAddress = addressLabel.text!
+    let coordinate = mapManager.getCenterLocation(for: mapView).coordinate
+    destination.dataLatitude = Double(coordinate.latitude)
+    destination.dataLongitude = Double(coordinate.longitude)
+    
 
     print("адрес: \(destination.dataAddress ?? "#Адрес не передался!!!")")
   }
@@ -187,5 +180,6 @@ extension MapViewController: MapViewControllerDelegate {
   
   func getOrder(_ order: Order?) {
     mapManager.setupOrder(order: order, mapView: mapView)
+    print("### Заказ успешно размещен ###")
   }
 }

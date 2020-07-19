@@ -34,17 +34,7 @@ final class Parameters {
                                "90-95",
                                "95-100",
                                "105-110",]
-//  private var arrayOfInterests = ["Почитать книгу",
-//                                  "Посмотреть кино",
-//                                  "Помочь по дому",
-//                                  "Прогулка",
-//                                  "Cходить в кино",
-//                                  "Другое"]
-  
   var arrayOfInterests = [String]()
-//  private var arrayOfDuration = ["1 час",
-//                                 "2 часа",
-//                                 "3 часа"]
   var arrayOfDuration = [String]()
   
   func getGender() -> [String] {
@@ -87,4 +77,3 @@ final class Parameters {
     return arrayOfDuration.count
   }
 }
-

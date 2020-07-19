@@ -7,13 +7,136 @@
 //
 
 import Foundation
+import FirebaseAuth
 
-struct User {
+class User {
   
   let objectId: String
   var email: String
-  var firstName: String
-  var lastName: String
-  var fullName: String
-  var addedOrders: [Order]
+  var addedOrdersIds: [String]
+
+init(_objectId: String, _email: String) {
+    objectId = _objectId
+    email = _email
+    addedOrdersIds = []
+  }
+  
+  init(_dictioanary: NSDictionary) {
+    objectId = _dictioanary[keyObjectId] as! String
+    
+    if let mail = _dictioanary[keyEmail] {
+      email = mail as! String
+    } else {
+      email = ""
+    }
+    
+    if let addedIds = _dictioanary[keyAddedOrdersIds] {
+      addedOrdersIds = addedIds as! [String]
+    } else {
+      addedOrdersIds = []
+    }
+  }
+  
+  //MARK: - Return current user
+  
+  class func currentId() -> String {
+    return Auth.auth().currentUser!.uid
+  }
+  
+  class func currentUser() -> User? {
+    if Auth.auth().currentUser != nil {
+      if let dictionary = UserDefaults.standard.object(forKey: keyCurrentUser) {
+        return User.init(_dictioanary: dictionary as! NSDictionary)
+      }
+    }
+    return nil
+  }
+  
+  //MARK: - Login func
+  class func loginUserWith(email: String, password: String, completion: @escaping(_ error: Error?, _ isEmailVerified: Bool) -> Void) {
+    
+    Auth.auth().signIn(withEmail: email, password: password) { (authDataResult, error) in
+      
+      if error == nil {
+        if authDataResult!.user.isEmailVerified {
+          //to download user from firestore
+          downloadUserFromFirestore(userId: authDataResult!.user.uid, email: email)
+          
+          completion(error, true)
+        } else {
+          print("email is not verified")
+          completion(error, false)
+        }
+      } else {
+        completion(error, false)
+      }
+    }
+  }
+  
+  //MARK: - Register user
+  class func registerUserWith(email: String, password: String, completion: @escaping(_ error: Error?) -> Void) {
+    Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
+      
+      completion(error)
+      
+      if error == nil {
+        //send email verification
+        authDataResult!.user.sendEmailVerification { (error) in
+          print("auth email verification error:", error?.localizedDescription)
+        }
+      }
+    }
+  }
+  
+  //MARK: - Log out user
+  class func logOutCurrentUser(completion: @escaping (_ error: Error?) -> Void) {
+    
+    do {
+      try Auth.auth().signOut()
+      UserDefaults.standard.removeObject(forKey: keyCurrentUser)
+      UserDefaults.standard.synchronize()
+      completion(nil)
+    } catch let error as NSError {
+      completion(error)
+    }
+  }
+  
+}
+//end of class
+
+//MARK: - Download User
+func downloadUserFromFirestore(userId: String, email: String) {
+  FirebaseReference(.User).document(userId).getDocument { (snapshot, error) in
+    guard let snapshot = snapshot else { return }
+    
+    if snapshot.exists {
+      print("download currnet user from firestore")
+      saveUserLocally(UserDictionary: snapshot.data()! as NSDictionary)
+    } else {
+      //there is no user, save new in firestore
+      
+      let user = User(_objectId: userId, _email: email)
+      saveUserLocally(UserDictionary: userDictionaryFrom(user: user))
+      saveUserToFirestore(User: user)
+    }
+  }
+}
+
+//MARK: - Save user to firebase
+func saveUserToFirestore(User: User) {
+  FirebaseReference(.User).document(User.objectId).setData(userDictionaryFrom(user: User) as! [String : Any]) { (error) in
+    if error != nil {
+      print("error saving user \(error!.localizedDescription)")
+    }
+  }
+}
+
+func saveUserLocally(UserDictionary: NSDictionary) {
+  UserDefaults.standard.set(UserDictionary, forKey: keyCurrentUser)
+  UserDefaults.standard.synchronize()
+}
+
+//MARK: - Helper Function
+func userDictionaryFrom(user: User) -> NSDictionary {
+  return NSDictionary(objects: [user.objectId, user.email, user.addedOrdersIds], forKeys: [keyObjectId as NSCopying, keyEmail as NSCopying, keyAddedOrdersIds as NSCopying])
 }

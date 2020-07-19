@@ -13,6 +13,9 @@ class WhoDoYouNeedViewController: UIViewController {
   weak var delegate: MapViewControllerDelegate?
 
   var dataAddress: String?
+  var dataLatitude: Double?
+  var dataLongitude: Double?
+  
   let properties = Parameters.shared
   
   let arrayOfGender = Parameters.shared.getGender()
@@ -49,7 +52,9 @@ class WhoDoYouNeedViewController: UIViewController {
       
       guard let gender = textFieldGender.text, let age = textFieldAge.text, let weight = textFieldWeight.text, let interest = textFieldInterests.text, let duration = textFieldDuration.text else { return }
       
-      let newOrder = Order(location: dataAddress ?? "Зеленоград", gender: gender, age: age, weight: weight, interests: interest, duration: 0)
+    guard let latitude = dataLatitude, let longitude = dataLongitude else { return }
+      
+      let newOrder = Order(location: dataAddress ?? "Зеленоград", latitude: latitude, longitude: longitude, gender: gender, age: age, weight: weight, interests: interest, duration: 0)
       
       switch duration {
       case "1 час":
@@ -63,7 +68,6 @@ class WhoDoYouNeedViewController: UIViewController {
       StorageManager.saveObject(newOrder)
       print("### Заказ успешно сохранен ###")
       delegate?.getOrder(newOrder)
-      print("### Заказ успешно размещен ###")
       
       weak var presentingVC = presentingViewController
       

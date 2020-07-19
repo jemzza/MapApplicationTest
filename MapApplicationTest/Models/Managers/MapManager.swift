@@ -40,10 +40,9 @@ class MapManager {
   func setupOrder(order: Order?, mapView: MKMapView) {
     
     //Установка по координатам
-    
     guard let order = order else { return }
     
-    let location = getCenterLocation(for: mapView)
+    let location = CLLocation(latitude: order.latitude, longitude: order.longitude)
     
     let annotation = MKPointAnnotation()
     
