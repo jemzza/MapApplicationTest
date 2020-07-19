@@ -31,7 +31,7 @@ final class FactoryInterests {
     case .shop:
       return GoToShopping()
     case .different:
-      return WatchAFilm()
+      return Different()
     }
   }
 }

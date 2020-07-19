@@ -74,18 +74,32 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     present(enteringAddressVC, animated: true, completion: nil)
   }
   
+//  @IBAction func nextButtonPressed(_ sender: UIButton) {
+//
+//    guard addressLabel.text != "" else {
+//          print("Choose address")
+//          return
+//        }
+//
+//    let whoDoYouNeedVC = WhoDoYouNeedViewController()
+//    whoDoYouNeedVC.delegate = self
+//    whoDoYouNeedVC.dataAddress = addressLabel.text!
+//    present(whoDoYouNeedVC, animated: true, completion: nil)
+//  }
+  
+  
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    
+
     guard segue.identifier == "showWhoDoYouNeed" else { return }
     guard let destination = segue.destination as? WhoDoYouNeedViewController else { return }
-    
+    destination.delegate = self
     guard addressLabel.text != "" else {
       print("Choose address")
       return
     }
-    
+
     destination.dataAddress = addressLabel.text!
-    
+
     print("адрес: \(destination.dataAddress ?? "#Адрес не передался!!!")")
   }
   
@@ -172,7 +186,6 @@ extension MapViewController: MapViewControllerDelegate {
   }
   
   func getOrder(_ order: Order?) {
-    guard let order = order else { return }
     mapManager.setupOrder(order: order, mapView: mapView)
   }
 }

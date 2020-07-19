@@ -37,43 +37,78 @@ class MapManager {
     }
   }
   
-  func setupOrder(order: Order, mapView: MKMapView) {
+  func setupOrder(order: Order?, mapView: MKMapView) {
     
-    guard let location = order.location else { return }
+    //Установка по координатам
     
-    let geocoder = CLGeocoder()
-    geocoder.geocodeAddressString(location) { (placemarks, error) in
-      if let error = error {
-        print(error)
-        return
-      }
-      
-      guard let placemarks = placemarks else { return }
-      
-      let placemark = placemarks.first
-      
-      let annotation = MKPointAnnotation()
-      
-      guard let gender = order.gender, let age = order.age, let weight = order.weight, let interest = order.interests else { return }
-      let duration = order.duration
-      
-      let date = order.date
-      let calendar = Calendar.current
-      guard let dateOfEnd = calendar.date(byAdding: .hour, value: duration, to: date) else { return }
-      
-      guard Date() <= dateOfEnd else { return }
-      guard let substractionInHours = calendar.dateComponents([.hour], from: date, to: dateOfEnd).hour else { return }
-      
-      annotation.title = "\(interest). \(gender). Возраст: \(age). Вес: \(weight)."
-      annotation.subtitle = "Осталось часов: \(substractionInHours)"
-      
-      guard let placemarkLocation = placemark?.location else { return }
-      
-      annotation.coordinate = placemarkLocation.coordinate
-      
-      mapView.addAnnotation(annotation)
-    }
+    guard let order = order else { return }
+    
+    let location = getCenterLocation(for: mapView)
+    
+    let annotation = MKPointAnnotation()
+    
+    guard let gender = order.gender, let age = order.age, let weight = order.weight, let interest = order.interests else { return }
+    let duration = order.duration
+    
+    let date = order.date
+    let calendar = Calendar.current
+    guard let dateOfEnd = calendar.date(byAdding: .hour, value: duration, to: date) else { return }
+    
+    guard Date() <= dateOfEnd else { return }
+    guard let substractionInHours = calendar.dateComponents([.hour], from: date, to: dateOfEnd).hour else { return }
+    
+    annotation.title = "\(interest). \(gender). Возраст: \(age). Вес: \(weight)."
+    annotation.subtitle = "Осталось часов: \(substractionInHours)"
+    
+    annotation.coordinate = location.coordinate
+    
+    mapView.addAnnotation(annotation)
+    
   }
+  
+  /*
+   func setupOrder(order: Order?, mapView: MKMapView) {
+   
+   //Установка по локации
+   
+   guard let order = order else { return }
+   guard let location = order.location else { return }
+   
+   let geocoder = CLGeocoder()
+   
+   geocoder.geocodeAddressString(location) { (placemarks, error) in
+   if let error = error {
+   print(error)
+   return
+   }
+   
+   guard let placemarks = placemarks else { return }
+   
+   let placemark = placemarks.first
+   
+   let annotation = MKPointAnnotation()
+   
+   guard let gender = order.gender, let age = order.age, let weight = order.weight, let interest = order.interests else { return }
+   let duration = order.duration
+   
+   let date = order.date
+   let calendar = Calendar.current
+   guard let dateOfEnd = calendar.date(byAdding: .hour, value: duration, to: date) else { return }
+   
+   guard Date() <= dateOfEnd else { return }
+   guard let substractionInHours = calendar.dateComponents([.hour], from: date, to: dateOfEnd).hour else { return }
+   
+   annotation.title = "\(interest). \(gender). Возраст: \(age). Вес: \(weight)."
+   annotation.subtitle = "Осталось часов: \(substractionInHours)"
+   
+   guard let placemarkLocation = placemark?.location else { return }
+   
+   annotation.coordinate = placemarkLocation.coordinate
+   
+   mapView.addAnnotation(annotation)
+   }
+   }
+   */
   
   //Checking the availability of geolocation services
   func checkLocationServices(mapView: MKMapView, segueIdentifier: String, closure: () -> ()) {
