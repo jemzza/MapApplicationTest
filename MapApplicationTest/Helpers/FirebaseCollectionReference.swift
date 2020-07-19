@@ -10,9 +10,7 @@ import FirebaseFirestore
 
 enum FCollectionReference: String {
   case User
-  case Category
-  case Items
-  case Basket
+  case Order
 }
 
 func FirebaseReference(_ collectionReference: FCollectionReference) -> CollectionReference {

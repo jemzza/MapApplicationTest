@@ -60,7 +60,7 @@ init(_objectId: String, _email: String) {
       if error == nil {
         if authDataResult!.user.isEmailVerified {
           //to download user from firestore
-          downloadUserFromFirestore(userId: authDataResult!.user.uid, email: email)
+          Network.shared.downloadUserFromFirestore(userId: authDataResult!.user.uid, email: email)
           
           completion(error, true)
         } else {
@@ -82,7 +82,8 @@ init(_objectId: String, _email: String) {
       if error == nil {
         //send email verification
         authDataResult!.user.sendEmailVerification { (error) in
-          print("auth email verification error:", error?.localizedDescription)
+          guard let error = error else { return }
+          print("auth email verification error:", error.localizedDescription)
         }
       }
     }
@@ -102,41 +103,4 @@ init(_objectId: String, _email: String) {
   }
   
 }
-//end of class
 
-//MARK: - Download User
-func downloadUserFromFirestore(userId: String, email: String) {
-  FirebaseReference(.User).document(userId).getDocument { (snapshot, error) in
-    guard let snapshot = snapshot else { return }
-    
-    if snapshot.exists {
-      print("download currnet user from firestore")
-      saveUserLocally(UserDictionary: snapshot.data()! as NSDictionary)
-    } else {
-      //there is no user, save new in firestore
-      
-      let user = User(_objectId: userId, _email: email)
-      saveUserLocally(UserDictionary: userDictionaryFrom(user: user))
-      saveUserToFirestore(User: user)
-    }
-  }
-}
-
-//MARK: - Save user to firebase
-func saveUserToFirestore(User: User) {
-  FirebaseReference(.User).document(User.objectId).setData(userDictionaryFrom(user: User) as! [String : Any]) { (error) in
-    if error != nil {
-      print("error saving user \(error!.localizedDescription)")
-    }
-  }
-}
-
-func saveUserLocally(UserDictionary: NSDictionary) {
-  UserDefaults.standard.set(UserDictionary, forKey: keyCurrentUser)
-  UserDefaults.standard.synchronize()
-}
-
-//MARK: - Helper Function
-func userDictionaryFrom(user: User) -> NSDictionary {
-  return NSDictionary(objects: [user.objectId, user.email, user.addedOrdersIds], forKeys: [keyObjectId as NSCopying, keyEmail as NSCopying, keyAddedOrdersIds as NSCopying])
-}
