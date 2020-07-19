@@ -10,6 +10,8 @@ import UIKit
 
 class WhoDoYouNeedViewController: UIViewController {
   
+  weak var delegate: MapViewControllerDelegate?
+
   var dataAddress: String?
   let properties = Parameters.shared
   
@@ -59,16 +61,17 @@ class WhoDoYouNeedViewController: UIViewController {
       }
       
       StorageManager.saveObject(newOrder)
-      print("### Заказ успешно размещен")
+      print("### Заказ успешно сохранен ###")
+      delegate?.getOrder(newOrder)
+      print("### Заказ успешно размещен ###")
       
-      weak var presentingVC = self.presentingViewController
-
+      weak var presentingVC = presentingViewController
+      
       self.dismiss(animated: true, completion: {
-          let successVC = SuccessViewController()
-          presentingVC?.present(successVC, animated: true, completion: nil)
+        let successVC = SuccessViewController()
+        successVC.modalPresentationStyle = .overFullScreen
+        presentingVC?.present(successVC, animated: true, completion: nil)
       })
-      
-//      dismiss(animated: true, completion: nil)
       
     } else {
       showAlert(title: "Не все поля заполнены", message: "Заполните, пожалуйста, все поля!")

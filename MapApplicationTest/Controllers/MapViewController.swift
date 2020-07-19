@@ -12,19 +12,14 @@ import RealmSwift
 
 protocol MapViewControllerDelegate: class {
   func getAddress(_ address: String?)
+  func getOrder(_ order: Order?)
 }
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   let mapManager = MapManager()
   private var orders: Results<Order>!
-  var addressForSearch = ""
-  
-  var interests = [Interest]()
-  var duration: Duration?
-  
-  //  let annotaionIdentifier = "annotaionIdentifier"
-  
+    
   var previousLocation: CLLocation? {
     didSet {
       mapManager.startTrackingUserLocation(for: mapView, and: previousLocation) { (currentLocation) in
@@ -94,47 +89,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     print("адрес: \(destination.dataAddress ?? "#Адрес не передался!!!")")
   }
   
-  //MARK: - Logic
-  /*
-   func createIntrest(nameOfInterest: Interests) {
-   
-   let newInterest = FactoryInterests.shared.createInterest(interest: nameOfInterest)
-   
-   if let index = interests.enumerated().first(where: { $0.element.name == newInterest.name })?.offset {
-   interests.remove(at: index)
-   } else {
-   interests.append(newInterest)
-   }
-   }
-   
-   func addInterest() {
-   
-   guard interests.count != 0 else {
-   print("Pls add some interests")
-   return
-   }
-   
-   order.interests = interests
-   interests.forEach({ $0.add() })
-   }
-   
-   func createDuration(nameOfDuration: Durations) {
-   
-   let newDuration = FactoryDuration.shared.createDuration(duration: nameOfDuration)
-   duration = newDuration
-   }
-   
-   func addDuration() {
-   
-   guard let duration = duration else {
-   print("Pls choose tariff")
-   return
-   }
-   order.duration = duration
-   duration.add()
-   }
-   */
-  
   //MARK: - Set up View
   
   func setUpMapView() {
@@ -156,7 +110,7 @@ extension MapViewController: MKMapViewDelegate {
       DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
         self.mapManager.showUserLocation(mapView: self.mapView)
       }
-    }ы
+    }
     
     // Отмена отложенного запроса для освобождения ресурсов
     geocoder.cancelGeocode()
@@ -189,16 +143,6 @@ extension MapViewController: MKMapViewDelegate {
     }
   }
   
-}
-
-extension MapViewController: MapViewControllerDelegate {
-  
-  func getAddress(_ address: String?) {
-    addressForSearch = address!
-    print(addressForSearch)
-    mapManager.searchPlace(string: address, mapView: mapView)
-  }
-  
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
     
@@ -206,7 +150,7 @@ extension MapViewController: MapViewControllerDelegate {
       annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
     }
     
-//    annotationView?.image = UIImage(named: "pinRed")
+    annotationView?.image = UIImage(named: "pinRed")
     return nil
   }
   
@@ -217,5 +161,18 @@ extension MapViewController: MapViewControllerDelegate {
   
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     
+  }
+  
+}
+
+extension MapViewController: MapViewControllerDelegate {
+  
+  func getAddress(_ address: String?) {
+    mapManager.searchPlace(string: address, mapView: mapView)
+  }
+  
+  func getOrder(_ order: Order?) {
+    guard let order = order else { return }
+    mapManager.setupOrder(order: order, mapView: mapView)
   }
 }
