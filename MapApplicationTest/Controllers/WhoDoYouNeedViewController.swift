@@ -61,7 +61,14 @@ class WhoDoYouNeedViewController: UIViewController {
       StorageManager.saveObject(newOrder)
       print("### Заказ успешно размещен")
       
-      dismiss(animated: true, completion: nil)
+      weak var presentingVC = self.presentingViewController
+
+      self.dismiss(animated: true, completion: {
+          let successVC = SuccessViewController()
+          presentingVC?.present(successVC, animated: true, completion: nil)
+      })
+      
+//      dismiss(animated: true, completion: nil)
       
     } else {
       showAlert(title: "Не все поля заполнены", message: "Заполните, пожалуйста, все поля!")

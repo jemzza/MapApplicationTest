@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D52F1004A4B7132D6941D8F /* Pods_MapApplicationTest_MapApplicationTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6829CE46A01125C6DBD3D2AE /* Pods_MapApplicationTest_MapApplicationTestUITests.framework */; };
 		0DEC0C17B243FFD92F86E4B9 /* Pods_MapApplicationTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75AA5240DE4D7B0DD4DD52BE /* Pods_MapApplicationTest.framework */; };
+		A21F658F24C43CDA00149ECC /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21F658E24C43CDA00149ECC /* SuccessViewController.swift */; };
 		A227AAF724C03BE500B3E1A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AAF624C03BE500B3E1A0 /* AppDelegate.swift */; };
 		A227AAF924C03BE500B3E1A0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227AAF824C03BE500B3E1A0 /* SceneDelegate.swift */; };
 		A227AAFE24C03BE500B3E1A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A227AAFC24C03BE500B3E1A0 /* Main.storyboard */; };
@@ -67,6 +68,7 @@
 		6829CE46A01125C6DBD3D2AE /* Pods_MapApplicationTest_MapApplicationTestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapApplicationTest_MapApplicationTestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75AA5240DE4D7B0DD4DD52BE /* Pods_MapApplicationTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapApplicationTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EA20E7247BF2A6E77B074EF /* Pods_MapApplicationTestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapApplicationTestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A21F658E24C43CDA00149ECC /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
 		A227AAF324C03BE500B3E1A0 /* MapApplicationTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApplicationTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A227AAF624C03BE500B3E1A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A227AAF824C03BE500B3E1A0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				A227AB2924C03C3400B3E1A0 /* MapViewController.swift */,
 				A26B6EA124C09CE100902F66 /* EnteringAddressViewController.swift */,
 				A235A6B824C1C25B00193965 /* WhoDoYouNeedViewController.swift */,
+				A21F658E24C43CDA00149ECC /* SuccessViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				A227AB0124C03BE500B3E1A0 /* MapApplicationTest.xcdatamodeld in Sources */,
 				A227AB3C24C0444700B3E1A0 /* GoToShopping.swift in Sources */,
 				A235A6B924C1C25B00193965 /* WhoDoYouNeedViewController.swift in Sources */,
+				A21F658F24C43CDA00149ECC /* SuccessViewController.swift in Sources */,
 				A26B6E9A24C053C300902F66 /* FactoryDuration.swift in Sources */,
 				A227AB4724C046C500B3E1A0 /* DurationThird.swift in Sources */,
 				A227AB3824C0436A00B3E1A0 /* HelpWithTheApartment.swift in Sources */,

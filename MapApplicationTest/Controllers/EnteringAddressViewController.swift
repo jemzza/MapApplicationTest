@@ -11,7 +11,7 @@ import UIKit
 class EnteringAddressViewController: UIViewController {
 
   weak var delegate: MapViewControllerDelegate?
-  let blurredBackground = UIImageView()
+  let imageViewBackground = UIImageView()
   
   let nameLabel: UILabel = {
     let label = UILabel()
@@ -62,10 +62,10 @@ class EnteringAddressViewController: UIViewController {
     
     view.backgroundColor = UIColor(white: 1, alpha: 0.1)
     
-    blurredBackground.frame = self.view.bounds
-    blurredBackground.blurImage()
+    imageViewBackground.frame = self.view.bounds
+    imageViewBackground.blurImage()
     
-    view.addSubview(blurredBackground)
+    view.addSubview(imageViewBackground)
     view.addSubview(nameLabel)
     view.addSubview(addressTextField)
     view.addSubview(doneButton)

@@ -316,6 +316,62 @@
             </objects>
             <point key="canvasLocation" x="1002.8985507246377" y="115.84821428571428"/>
         </scene>
+        <!--Success View Controller-->
+        <scene sceneID="hmf-0a-mrD">
+            <objects>
+                <viewController id="2al-2a-gvA" customClass="SuccessViewController" customModule="MapApplicationTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2FQ-8r-J5V">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o2x-2M-FQ4">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заказ успешно размещен" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htF-0o-cfd">
+                                <rect key="frame" x="40" y="213.5" width="334" height="76.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hxx-JU-N8e">
+                                <rect key="frame" x="50" y="425.5" width="314" height="45"/>
+                                <color key="backgroundColor" red="0.2274509804" green="0.59215686270000001" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="2Hg-Dm-cx1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Готово">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="createOrderButtonPressed:" destination="y2M-sz-elM" eventType="touchUpInside" id="2w7-vl-lH3"/>
+                                    <action selector="doneButtonPressed:" destination="2al-2a-gvA" eventType="touchUpInside" id="aLT-Pm-H3P"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Hxx-JU-N8e" firstAttribute="top" secondItem="htF-0o-cfd" secondAttribute="bottom" constant="135.5" id="8Ns-HE-1MU"/>
+                            <constraint firstItem="CdU-qm-IsD" firstAttribute="trailing" secondItem="Hxx-JU-N8e" secondAttribute="trailing" constant="50" id="GeH-m6-6dy"/>
+                            <constraint firstItem="Hxx-JU-N8e" firstAttribute="leading" secondItem="CdU-qm-IsD" secondAttribute="leading" constant="50" id="Q16-BF-Fon"/>
+                            <constraint firstItem="o2x-2M-FQ4" firstAttribute="top" secondItem="2FQ-8r-J5V" secondAttribute="top" id="TAW-IA-217"/>
+                            <constraint firstItem="o2x-2M-FQ4" firstAttribute="leading" secondItem="2FQ-8r-J5V" secondAttribute="leading" id="c6q-KI-iZU"/>
+                            <constraint firstItem="htF-0o-cfd" firstAttribute="leading" secondItem="CdU-qm-IsD" secondAttribute="leading" constant="40" id="dp4-Ku-oaV"/>
+                            <constraint firstItem="Hxx-JU-N8e" firstAttribute="centerY" secondItem="2FQ-8r-J5V" secondAttribute="centerY" id="h1p-xk-Ugb"/>
+                            <constraint firstItem="o2x-2M-FQ4" firstAttribute="trailing" secondItem="CdU-qm-IsD" secondAttribute="trailing" id="mnj-y9-3pH"/>
+                            <constraint firstAttribute="bottom" secondItem="o2x-2M-FQ4" secondAttribute="bottom" id="nyj-Iw-6SR"/>
+                            <constraint firstItem="CdU-qm-IsD" firstAttribute="trailing" secondItem="htF-0o-cfd" secondAttribute="trailing" constant="40" id="taO-i9-Phe"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CdU-qm-IsD"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="o2x-2M-FQ4" id="wLV-ke-6NC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W6s-PQ-01R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1807.2463768115942" y="112.5"/>
+        </scene>
     </scenes>
     <resources>
         <image name="loactionBlue" width="50" height="50"/>

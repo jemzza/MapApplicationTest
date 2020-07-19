@@ -156,7 +156,7 @@ extension MapViewController: MKMapViewDelegate {
       DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
         self.mapManager.showUserLocation(mapView: self.mapView)
       }
-    }
+    }ы
     
     // Отмена отложенного запроса для освобождения ресурсов
     geocoder.cancelGeocode()
@@ -171,12 +171,15 @@ extension MapViewController: MKMapViewDelegate {
       guard let placemarks = placemarks else { return }
       
       let placemark = placemarks.first
+      let city = placemark?.locality
       let streetName = placemark?.thoroughfare
       let buildNumber = placemark?.subThoroughfare
       
       DispatchQueue.main.async {
-        if streetName != nil && buildNumber != nil {
-          self.addressLabel.text = "\(streetName!), \(buildNumber!)"
+        if city != nil && streetName != nil && buildNumber != nil {
+          self.addressLabel.text = "Город \(city!), \(streetName!), строение \(buildNumber!)"
+        } else if city != nil && streetName != nil {
+          self.addressLabel.text = "\(city!), \(streetName!)"
         } else if streetName != nil {
           self.addressLabel.text = "\(streetName!)"
         } else {
