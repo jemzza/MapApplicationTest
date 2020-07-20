@@ -70,18 +70,35 @@
                                     <action selector="addressButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="24B-M2-y5F"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yth-T1-rYI">
+                                <rect key="frame" x="314" y="717" width="80" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="5od-RO-2T2"/>
+                                    <constraint firstAttribute="height" constant="50" id="dV6-3e-njK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Выйти">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="logOutButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0WP-VT-md3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="N9K-Dy-Bxx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3kW-xx-dpG"/>
                             <constraint firstItem="Dnj-Z6-O42" firstAttribute="top" secondItem="dov-Hg-Fc5" secondAttribute="bottom" constant="50" id="4Pv-iP-qq5"/>
                             <constraint firstItem="Dnj-Z6-O42" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="9YH-pJ-yMJ"/>
+                            <constraint firstItem="EpW-jM-cfi" firstAttribute="centerY" secondItem="yth-T1-rYI" secondAttribute="centerY" id="FSP-hN-sAe"/>
                             <constraint firstItem="EpW-jM-cfi" firstAttribute="centerY" secondItem="dov-Hg-Fc5" secondAttribute="centerY" id="FTz-WW-ccd"/>
                             <constraint firstItem="Dnj-Z6-O42" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Hpb-7h-M3H"/>
                             <constraint firstItem="EpW-jM-cfi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Igm-b7-xv0"/>
                             <constraint firstItem="RL5-9y-iKs" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="LIy-lU-Dfc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Dnj-Z6-O42" secondAttribute="bottom" id="LyZ-AK-LFy"/>
                             <constraint firstItem="dov-Hg-Fc5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="PPz-2j-RLF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yth-T1-rYI" secondAttribute="trailing" constant="20" id="QFR-Pn-Zfc"/>
                             <constraint firstItem="N9K-Dy-Bxx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ZpN-Pp-EDC"/>
                             <constraint firstItem="KUC-tf-Uvh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="fo9-F0-rhn"/>
                             <constraint firstAttribute="bottom" secondItem="N9K-Dy-Bxx" secondAttribute="bottom" id="h4q-XV-Znh"/>
@@ -95,6 +112,7 @@
                     <connections>
                         <outlet property="addressButton" destination="EpW-jM-cfi" id="Hvq-zo-WB7"/>
                         <outlet property="addressLabel" destination="KUC-tf-Uvh" id="o01-fj-pD1"/>
+                        <outlet property="logOutButton" destination="yth-T1-rYI" id="Ebv-wq-9oh"/>
                         <outlet property="mapPinImage" destination="RL5-9y-iKs" id="Lkr-FR-bBE"/>
                         <outlet property="mapView" destination="N9K-Dy-Bxx" id="irF-1j-Lkj"/>
                         <outlet property="myLocationButton" destination="dov-Hg-Fc5" id="bVv-Pz-P1l"/>

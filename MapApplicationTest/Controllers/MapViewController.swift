@@ -25,6 +25,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   @IBOutlet weak var addressButton: UIButton!
   @IBOutlet weak var addressLabel: UILabel!
   @IBOutlet weak var nextButton: UIButton!
+  @IBOutlet weak var logOutButton: UIButton!
   
   //MARK: - Vars
   
@@ -47,7 +48,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    setUpMapView()
+    setupView()
     mapManager.locationManager.requestWhenInUseAuthorization()
     mapView.showsUserLocation = true
     mapView.userTrackingMode = .follow
@@ -79,6 +80,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     present(enteringAddressVC, animated: true, completion: nil)
   }
   
+  @IBAction func logOutButtonPressed(_ sender: UIButton) {
+    
+    print("Logout user")
+    if User.currentUser() != nil {
+      logOutUser()
+    } else {
+      showAlert(title: "Ошибка", message: "Пользоавтель не авторизован в системе")
+    }
+  }
+  
   //MARK: - Prepare for segue
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -87,27 +98,31 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     if User.currentUser() == nil {
       
       showWelcomeVC()
-      
+    
     } else {
-
       showWhoDoYouNeedVC(segue: segue)
     }
   }
   
   //MARK: - Setup View
   
-  func setUpMapView() {
+  func setupView() {
+    
     addressLabel.text = ""
     addressButton.layer.cornerRadius = addressButton.frame.size.height / 2
     addressButton.layer.borderColor = UIColor.darkGray.cgColor
     addressButton.layer.borderWidth = 1
+    
+    logOutButton.layer.cornerRadius = addressButton.frame.size.height / 2
+    logOutButton.layer.borderColor = UIColor.darkGray.cgColor
+    logOutButton.layer.borderWidth = 1
   }
   
   //MARK: - Show welcomeVC
   
   private func showWelcomeVC() {
-    let loginView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "welcomeVC")
-    self.present(loginView, animated: true, completion: nil)
+    let welcomeView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "welcomeVC")
+    self.present(welcomeView, animated: true, completion: nil)
   }
   
   //MARK: - Show WhoDoYouNeedViewController
@@ -129,6 +144,34 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     
     print("адрес: \(destination.dataAddress ?? "#Адрес не передался!!!")")
+  }
+  
+  //MARK: - Helpers func
+  
+  private func logOutUser() {
+    
+    User.logOutCurrentUser { (error) in
+      if error == nil {
+        print("logged out")
+        
+        self.showAlert(title: "Успешный выход", message: "Пользователь вышел из системы")
+        
+      } else {
+        print("error login out", error!.localizedDescription)
+        self.showAlert(title: "Ошибка при выходе", message: "error!.localizedDescription")
+      }
+    }
+  }
+  
+  private func showAlert(title: String, message: String) {
+    
+    print("Show alert")
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+    
+    alert.addAction(okAction)
+    
+    present(alert, animated: true, completion: nil)
   }
 }
 
