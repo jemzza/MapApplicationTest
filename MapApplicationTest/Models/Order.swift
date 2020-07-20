@@ -7,12 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
 
 enum Gender {
   case male, female
 }
-
-import RealmSwift
 
 class Order: Object {
   
@@ -26,7 +25,7 @@ class Order: Object {
   @objc dynamic var weight: String!
   @objc dynamic var interests: String!
   @objc dynamic var duration: Int = 0
-  @objc dynamic var date = Date()
+  @objc dynamic var date = Date().timeIntervalSince1970
   
   convenience init(location: String, latitude: Double, longitude: Double, gender: String, age: String, weight: String, interests: String, duration: Int) {
     self.init()
@@ -54,7 +53,7 @@ class Order: Object {
     age = _dictionary[keyAge] as? String
     weight = _dictionary[keyWeight] as? String
     interests = _dictionary[keyInterests] as? String
-    date = (_dictionary[keyDate] as? Date)!
+    date = (_dictionary[keyDate] as? TimeInterval)!
   }
 }
 

@@ -29,6 +29,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   //MARK: - Vars
   let mapManager = MapManager()
   private var orders: Results<Order>!
+  private var ordersFromFB: [Order]!
   
   var previousLocation: CLLocation? {
     didSet {
@@ -147,14 +148,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     NetworkManager.shared.downloadOrdersFromFirebase { (allOrders) in
       
-//      self.orders = allOrders
+      self.ordersFromFB = allOrders
       
-      allOrders.forEach { (order) in
+      self.ordersFromFB.forEach { (order) in
         DispatchQueue.main.async {
           self.mapManager.setupOrder(order: order, mapView: self.mapView)
         }
       }
-//      self.mapView.reloadInputViews()
     }
   }
   

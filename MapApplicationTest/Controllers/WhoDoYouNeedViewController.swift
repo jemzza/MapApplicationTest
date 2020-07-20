@@ -71,8 +71,8 @@ class WhoDoYouNeedViewController: UIViewController {
         newOrder.duration = 3
       }
       
-      StorageManager.saveObject(newOrder)
-      print("### Заказ успешно сохранен локально###")
+//      StorageManager.saveObject(newOrder)
+//      print("### Заказ успешно сохранен локально###")
       
       NetworkManager.shared.saveOrderToFirestore(newOrder)
       print("### Заказ успешно сохранен в Firestore###")

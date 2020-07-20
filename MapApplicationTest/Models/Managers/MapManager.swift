@@ -49,15 +49,36 @@ class MapManager {
     guard let gender = order.gender, let age = order.age, let weight = order.weight, let interest = order.interests else { return }
     let duration = order.duration
     
-    let date = order.date
+    let date = Date(timeIntervalSince1970: order.date)
     let calendar = Calendar.current
     guard let dateOfEnd = calendar.date(byAdding: .hour, value: duration, to: date) else { return }
     
-    guard Date() <= dateOfEnd else { return }
+    guard Date() >= dateOfEnd else { return }
     guard let substractionInHours = calendar.dateComponents([.hour], from: date, to: dateOfEnd).hour else { return }
     
     annotation.title = "\(interest). \(gender). Возраст: \(age). Вес: \(weight)."
     annotation.subtitle = "Осталось часов: \(substractionInHours)"
+    
+    annotation.coordinate = location.coordinate
+    
+    mapView.addAnnotation(annotation)
+    
+  }
+  
+  func setupOrderFromFB(order: Order?, mapView: MKMapView) {
+    
+    //Установка по координатам
+    guard let order = order else { return }
+    
+    let location = CLLocation(latitude: order.latitude, longitude: order.longitude)
+    
+    let annotation = MKPointAnnotation()
+    
+    guard let gender = order.gender, let age = order.age, let weight = order.weight, let interest = order.interests else { return }
+    let duration = order.duration
+    
+    annotation.title = "\(interest). \(gender). Возраст: \(age). Вес: \(weight)."
+    annotation.subtitle = "Длительность: \(duration)\n\(order.date)"
     
     annotation.coordinate = location.coordinate
     
