@@ -19,7 +19,7 @@ final class NetworkManager {
   //MARK: - Download User
   func downloadUserFromFirestore(userId: String, email: String) {
     
-//    guard Reachabilty.HasConnection() else { return }
+    guard Reachabilty.HasConnection() else { return }
     
     FirebaseReference(.User).document(userId).getDocument { (snapshot, error) in
       guard let snapshot = snapshot else { return }
@@ -39,9 +39,7 @@ final class NetworkManager {
 
   //MARK: - Save User to firebase
   private func saveUserToFirestore(User: User) {
-    
-//    guard Reachabilty.HasConnection() else { return }
-    
+        
     FirebaseReference(.User).document(User.objectId).setData(userDictionaryFrom(user: User) as! [String : Any]) { (error) in
       if error != nil {
         print("error saving user \(error!.localizedDescription)")
@@ -60,12 +58,12 @@ final class NetworkManager {
   }
 
   
-  //MARK: - Orders
+  //MARK: - Order
   
   //MARK: - Save Order
   func saveOrderToFirestore(_ order: Order) {
     
-//    guard Reachabilty.HasConnection() else { return }
+    guard Reachabilty.HasConnection() else { return }
     
     FirebaseReference(.Order).document(order.id).setData(orderDictionaryFrom(order) as! [String : Any])
   }
@@ -133,5 +131,4 @@ final class NetworkManager {
     }
   }
 
-  
 }

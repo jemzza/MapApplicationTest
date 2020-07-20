@@ -9,9 +9,8 @@
 import UIKit
 
 class EnteringAddressViewController: UIViewController {
-
-  //MARK: - Vars
   
+  //MARK: - Vars
   weak var delegate: MapViewControllerDelegate?
   let imageViewBackground = UIImageView()
   
@@ -47,7 +46,6 @@ class EnteringAddressViewController: UIViewController {
   }()
   
   //MARK: - View Lifecycle
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -59,9 +57,11 @@ class EnteringAddressViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    
     setupConstraints()
   }
   
+  //MARK: - Setup View
   func setupView() {
     
     view.backgroundColor = UIColor(white: 1, alpha: 0.1)
@@ -76,7 +76,6 @@ class EnteringAddressViewController: UIViewController {
   }
   
   //MARK: - Constraints
-  
   func setupConstraints() {
     
     NSLayoutConstraint.activate([
@@ -94,8 +93,10 @@ class EnteringAddressViewController: UIViewController {
     ])
   }
   
+  //MARK: - @objc methods
   @objc
   func doneButtonPressed() {
+    
     print("action doneButtonPressed \n  Begin search location...")
     delegate?.getAddress(addressTextField.text!)
     self.dismiss(animated: true, completion: nil)
@@ -106,8 +107,7 @@ class EnteringAddressViewController: UIViewController {
     dismissKeyboard()
   }
   
-  //MARK: - Helper functions
-  
+  //MARK: - Helpers func
   private func dismissKeyboard() {
     self.view.endEditing(false)
   }
@@ -117,6 +117,7 @@ class EnteringAddressViewController: UIViewController {
 extension EnteringAddressViewController: UITextFieldDelegate {
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
     textField.resignFirstResponder()
     return true
   }
@@ -130,17 +131,5 @@ extension EnteringAddressViewController: UITextFieldDelegate {
     } else {
       doneButton.isEnabled = false
     }
-  }
-}
-
-extension UIImageView{
-  func blurImage()
-  {
-    let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
-    let blurEffectView = UIVisualEffectView(effect: blurEffect)
-    blurEffectView.frame = self.bounds
-    
-    blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    self.addSubview(blurEffectView)
   }
 }

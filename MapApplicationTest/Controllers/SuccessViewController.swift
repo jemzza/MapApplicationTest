@@ -10,6 +10,7 @@ import UIKit
 
 class SuccessViewController: UIViewController {
   
+  //MARK: - Vars
   let imageViewBackground = UIImageView()
   
   let nameLabel: UILabel = {
@@ -36,6 +37,7 @@ class SuccessViewController: UIViewController {
     return button
   }()
   
+  //MARK: - View Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -44,9 +46,11 @@ class SuccessViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    
     setupConstraints()
   }
   
+  //MARK: - Setup View
   func setupView() {
     
     view.backgroundColor = UIColor(white: 1, alpha: 0.1)
@@ -60,7 +64,6 @@ class SuccessViewController: UIViewController {
   }
   
   //MARK: - Constraints
-  
   func setupConstraints() {
     
     NSLayoutConstraint.activate([
@@ -74,6 +77,7 @@ class SuccessViewController: UIViewController {
     ])
   }
   
+  //MARK: - @objc methods
   @objc
   func doneButtonPressed() {
     self.dismiss(animated: true, completion: nil)

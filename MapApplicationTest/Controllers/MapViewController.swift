@@ -18,7 +18,6 @@ protocol MapViewControllerDelegate: class {
 class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   //MARK: - IBOutlets
-  
   @IBOutlet weak var mapView: MKMapView!
   @IBOutlet weak var mapPinImage: UIImageView!
   @IBOutlet weak var myLocationButton: UIButton!
@@ -28,7 +27,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   @IBOutlet weak var logOutButton: UIButton!
   
   //MARK: - Vars
-  
   let mapManager = MapManager()
   private var orders: Results<Order>!
   
@@ -44,7 +42,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   }
   
   //MARK: - View Lifecycle
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -66,15 +63,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   }
   
   //MARK: - IBActions
-  
   @IBAction func myLocationButtonPressed(_ sender: UIButton) {
+    
     print("Determine user location")
     mapManager.showUserLocation(mapView: mapView)
   }
   
   @IBAction func addressButtonPressed(_ sender: UIButton) {
-    print("Show text field for enter new address by user")
     
+    print("Show text field for enter new address by user")
     let enteringAddressVC = EnteringAddressViewController()
     enteringAddressVC.delegate = self
     present(enteringAddressVC, animated: true, completion: nil)
@@ -84,28 +81,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     print("Logout user")
     if User.currentUser() != nil {
+      
       logOutUser()
     } else {
+      
       showAlert(title: "Ошибка", message: "Пользоавтель не авторизован в системе")
     }
   }
   
   //MARK: - Prepare for segue
-  
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
-    //check if user is logged
     if User.currentUser() == nil {
       
       showWelcomeVC()
-    
     } else {
+      
       showWhoDoYouNeedVC(segue: segue)
     }
   }
   
   //MARK: - Setup View
-  
   func setupView() {
     
     addressLabel.text = ""
@@ -119,14 +115,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   }
   
   //MARK: - Show welcomeVC
-  
   private func showWelcomeVC() {
+    
     let welcomeView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "welcomeVC")
     self.present(welcomeView, animated: true, completion: nil)
   }
   
   //MARK: - Show WhoDoYouNeedViewController
-  
   private func showWhoDoYouNeedVC(segue: UIStoryboardSegue ) {
     
     guard segue.identifier == "showWhoDoYouNeed" else { return }
@@ -142,21 +137,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     destination.dataLatitude = Double(coordinate.latitude)
     destination.dataLongitude = Double(coordinate.longitude)
     
-    
     print("адрес: \(destination.dataAddress ?? "#Адрес не передался!!!")")
   }
   
   //MARK: - Helpers func
-  
   private func logOutUser() {
     
     User.logOutCurrentUser { (error) in
+      
       if error == nil {
-        print("logged out")
         
+        print("logged out")
         self.showAlert(title: "Успешный выход", message: "Пользователь вышел из системы")
         
       } else {
+        
         print("error login out", error!.localizedDescription)
         self.showAlert(title: "Ошибка при выходе", message: "error!.localizedDescription")
       }
@@ -176,7 +171,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 }
 
 //MARK: - MKMapViewDelegate
-
 extension MapViewController: MKMapViewDelegate {
   
   func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -222,6 +216,7 @@ extension MapViewController: MKMapViewDelegate {
   }
   
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    
     var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
     
     if annotationView == nil {
@@ -234,6 +229,7 @@ extension MapViewController: MKMapViewDelegate {
   
   
   func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    
     print("the annotation was selected \(String(describing: view.annotation?.title))")
   }
   
@@ -244,7 +240,6 @@ extension MapViewController: MKMapViewDelegate {
 }
 
 //MARK: - MapViewControllerDelegate
-
 extension MapViewController: MapViewControllerDelegate {
   
   func getAddress(_ address: String?) {

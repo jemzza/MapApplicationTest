@@ -41,6 +41,7 @@
 		A26B6EA224C09CE100902F66 /* EnteringAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B6EA124C09CE100902F66 /* EnteringAddressViewController.swift */; };
 		A26F87A124C38B4D0071E1BF /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26F87A024C38B4D0071E1BF /* Parameters.swift */; };
 		A275E38824C59531002F9E7D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A275E38724C59531002F9E7D /* WelcomeViewController.swift */; };
+		A275E38B24C5C075002F9E7D /* BlurExtensionForImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A275E38A24C5C075002F9E7D /* BlurExtensionForImageView.swift */; };
 		A2C942BB24C4E9A000C971F1 /* FirebaseCollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C942BA24C4E9A000C971F1 /* FirebaseCollectionReference.swift */; };
 		A2C942BD24C4EB3500C971F1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C942BC24C4EB3500C971F1 /* NetworkManager.swift */; };
 		A2C942BF24C4EBB200C971F1 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C942BE24C4EBB200C971F1 /* Reachability.swift */; };
@@ -112,6 +113,7 @@
 		A26B6EA124C09CE100902F66 /* EnteringAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnteringAddressViewController.swift; sourceTree = "<group>"; };
 		A26F87A024C38B4D0071E1BF /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		A275E38724C59531002F9E7D /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		A275E38A24C5C075002F9E7D /* BlurExtensionForImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurExtensionForImageView.swift; sourceTree = "<group>"; };
 		A2C942BA24C4E9A000C971F1 /* FirebaseCollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCollectionReference.swift; sourceTree = "<group>"; };
 		A2C942BC24C4EB3500C971F1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A2C942BE24C4EBB200C971F1 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -309,9 +311,18 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		A275E38924C5C03D002F9E7D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A275E38A24C5C075002F9E7D /* BlurExtensionForImageView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A2C942B924C4E98100C971F1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A275E38924C5C03D002F9E7D /* Extensions */,
 				A2C942BA24C4E9A000C971F1 /* FirebaseCollectionReference.swift */,
 				A2C942BE24C4EBB200C971F1 /* Reachability.swift */,
 				A2C942C024C4EE1100C971F1 /* Constants.swift */,
@@ -577,6 +588,7 @@
 				A21F658F24C43CDA00149ECC /* SuccessViewController.swift in Sources */,
 				A26B6E9A24C053C300902F66 /* FactoryDuration.swift in Sources */,
 				A227AB4724C046C500B3E1A0 /* DurationThird.swift in Sources */,
+				A275E38B24C5C075002F9E7D /* BlurExtensionForImageView.swift in Sources */,
 				A2C942BB24C4E9A000C971F1 /* FirebaseCollectionReference.swift in Sources */,
 				A227AB3824C0436A00B3E1A0 /* HelpWithTheApartment.swift in Sources */,
 				A227AAF724C03BE500B3E1A0 /* AppDelegate.swift in Sources */,

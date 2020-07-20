@@ -10,8 +10,18 @@ import UIKit
 
 class WhoDoYouNeedViewController: UIViewController {
   
+  //MARK: - IBOutlets
+  @IBOutlet weak var imageViewBackground: UIImageView!
+  @IBOutlet weak var textFieldGender: UITextField!
+  @IBOutlet weak var textFieldAge: UITextField!
+  @IBOutlet weak var textFieldWeight: UITextField!
+  @IBOutlet weak var textFieldInterests: UITextField!
+  @IBOutlet weak var textFieldDuration: UITextField!
+  @IBOutlet weak var createOrderButton: UIButton!
+  
+  //MARK: - Vars
   weak var delegate: MapViewControllerDelegate?
-
+  
   var dataAddress: String?
   var dataLatitude: Double?
   var dataLongitude: Double?
@@ -24,17 +34,10 @@ class WhoDoYouNeedViewController: UIViewController {
   let arrayOfInterests = Parameters.shared.getInterests()
   let arrayOfDuration = Parameters.shared.getDuration()
   
-  @IBOutlet weak var imageViewBackground: UIImageView!
-  @IBOutlet weak var textFieldGender: UITextField!
-  @IBOutlet weak var textFieldAge: UITextField!
-  @IBOutlet weak var textFieldWeight: UITextField!
-  @IBOutlet weak var textFieldInterests: UITextField!
-  @IBOutlet weak var textFieldDuration: UITextField!
-  @IBOutlet weak var createOrderButton: UIButton!
-  
   let pickerView = UIPickerView()
   var activeTextField = 0
   
+  //MARK: - View Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -46,13 +49,15 @@ class WhoDoYouNeedViewController: UIViewController {
     textFieldInterests.delegate = self
     textFieldDuration.delegate = self
   }
+  
+  //MARK: - IBActions
   @IBAction func createOrderButtonPressed(_ sender: UIButton) {
     
     if textFieldGender.text != "" && textFieldAge.text != "" && textFieldWeight.text != "" && textFieldInterests.text != "" && textFieldDuration.text != "" {
       
       guard let gender = textFieldGender.text, let age = textFieldAge.text, let weight = textFieldWeight.text, let interest = textFieldInterests.text, let duration = textFieldDuration.text else { return }
       
-    guard let latitude = dataLatitude, let longitude = dataLongitude else { return }
+      guard let latitude = dataLatitude, let longitude = dataLongitude else { return }
       
       let newOrder = Order(location: dataAddress ?? "Зеленоград", latitude: latitude, longitude: longitude, gender: gender, age: age, weight: weight, interests: interest, duration: 0)
       
@@ -82,6 +87,7 @@ class WhoDoYouNeedViewController: UIViewController {
     }
   }
   
+  //MARK: - Setup View
   private func setupView() {
     
     textFieldGender.backgroundColor = UIColor(white: 1, alpha: 0.3)
@@ -97,9 +103,12 @@ class WhoDoYouNeedViewController: UIViewController {
     createToolbar()
   }
   
+  //MARK: - Create objects (pickerView, toolar)
   private func createPickerView() {
+    
     pickerView.delegate = self
     pickerView.delegate?.pickerView?(pickerView, didSelectRow: 0, inComponent: 0)
+    
     textFieldGender.inputView = pickerView
     textFieldAge.inputView = pickerView
     textFieldWeight.inputView = pickerView
@@ -110,10 +119,12 @@ class WhoDoYouNeedViewController: UIViewController {
   }
   
   private func createToolbar() {
+    
     let toolbar = UIToolbar()
     toolbar.sizeToFit()
     toolbar.tintColor = UIColor.systemBlue
     toolbar.backgroundColor = UIColor.white
+    
     let doneButton = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(WhoDoYouNeedViewController.closePickerView))
     toolbar.setItems([doneButton], animated: false)
     toolbar.isUserInteractionEnabled = true
@@ -125,6 +136,12 @@ class WhoDoYouNeedViewController: UIViewController {
     textFieldDuration.inputAccessoryView = toolbar
   }
   
+  //MARK: - @objc methods
+  @objc func closePickerView() {
+    view.endEditing(true)
+  }
+  
+  //MARK: - Helpers func
   private func showAlert(title: String, message: String) {
     
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -132,12 +149,9 @@ class WhoDoYouNeedViewController: UIViewController {
     alert.addAction(okAction)
     self.present(alert, animated: true, completion: nil)
   }
-  
-  @objc func closePickerView() {
-    view.endEditing(true)
-  }
 }
 
+//MARK: - PickerViewDataSource, PickerViewDelegate
 extension WhoDoYouNeedViewController: UIPickerViewDataSource, UIPickerViewDelegate {
   
   func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -220,6 +234,7 @@ extension WhoDoYouNeedViewController: UIPickerViewDataSource, UIPickerViewDelega
   }
 }
 
+//MARK: - TextFieldDelegate
 extension WhoDoYouNeedViewController: UITextFieldDelegate {
   
   func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -249,6 +264,5 @@ extension WhoDoYouNeedViewController: UITextFieldDelegate {
     default:
       print("undefined")
     }
-    
   }
 }
