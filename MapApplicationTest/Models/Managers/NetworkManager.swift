@@ -100,35 +100,4 @@ final class NetworkManager {
       
   }
 
-  //MARK: - Download
-  func downloadOrders(_ withIds: [String], completion: @escaping (_ orderArray: [Order]) -> Void) {
-    
-    var count = 0
-    var orderArray: [Order] = []
-    
-    if withIds.count > 0 {
-      for orderId in withIds {
-        FirebaseReference(.Order).document(orderId).getDocument { (snapshot, error) in
-          guard let snapshot = snapshot else {
-            completion(orderArray)
-            return
-          }
-          
-          if snapshot.exists {
-            orderArray.append(Order(_dictionary: snapshot.data()! as NSDictionary))
-            count += 1
-          } else {
-            completion(orderArray)
-          }
-          
-          if count == withIds.count {
-            completion(orderArray)
-          }
-        }
-      }
-    } else {
-      completion(orderArray)
-    }
-  }
-
 }

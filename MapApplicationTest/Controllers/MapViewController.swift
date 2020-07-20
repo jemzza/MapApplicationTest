@@ -147,9 +147,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   private func loadOrders() {
     
     NetworkManager.shared.downloadOrdersFromFirebase { (allOrders) in
-      
+
       self.ordersFromFB = allOrders
-      
+
       self.ordersFromFB.forEach { (order) in
         DispatchQueue.main.async {
           self.mapManager.setupOrder(order: order, mapView: self.mapView)

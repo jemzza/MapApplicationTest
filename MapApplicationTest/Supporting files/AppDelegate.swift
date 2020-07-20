@@ -13,7 +13,8 @@ import Firebase
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
-  
+  var timer: Timer?
+  var data: [Order]?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
@@ -42,9 +43,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     arrayOfDurationFull.forEach { (duration) in
       properties.arrayOfDuration.append(duration.name)
     }
-
+    
+    timer = Timer.scheduledTimer(timeInterval: 4, target:self, selector: #selector(AppDelegate.update_data), userInfo: nil, repeats: true)
     
     return true
+  }
+  
+  @objc
+  func update_data() {
+    
+      NetworkManager.shared.downloadOrdersFromFirebase { (allOrders) in
+        if self.data == allOrders {
+          return
+          
+        } else {
+          self.data = allOrders
+//          NotificationCenter.default.post(name: Notification.Name("update_new_date"), object: nil, userInfo: allOrders)
+          NotificationCenter.default.post(name: Notification.Name("update_new_date"), object: nil, userInfo: nil)
+
+        }
+    }
   }
   
   // MARK: UISceneSession Lifecycle
