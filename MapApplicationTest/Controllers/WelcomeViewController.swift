@@ -21,6 +21,8 @@ class WelcomeViewController: UIViewController {
     
   }
   
+  //MARK: - IBActions
+  
   @IBAction func loginButtonPressed(_ sender: UIButton) {
     
     print("Login user")

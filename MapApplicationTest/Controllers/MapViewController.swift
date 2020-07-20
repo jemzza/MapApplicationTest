@@ -64,11 +64,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    
-  }
-  
   //MARK: - IBActions
   
   @IBAction func myLocationButtonPressed(_ sender: UIButton) {
@@ -89,11 +84,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     //check if user is logged
-    if User.currentUser() != nil {
-      showWhoDoYouNeedVC(segue: segue)
+    if User.currentUser() == nil {
+      
+      showWelcomeVC()
       
     } else {
-      showWelcomeVC()
+
+      showWhoDoYouNeedVC(segue: segue)
     }
   }
   
@@ -110,13 +107,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   
   private func showWelcomeVC() {
     let loginView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "welcomeVC")
-    loginView.modalPresentationStyle = .fullScreen
     self.present(loginView, animated: true, completion: nil)
   }
   
   //MARK: - Show WhoDoYouNeedViewController
   
   private func showWhoDoYouNeedVC(segue: UIStoryboardSegue ) {
+    
     guard segue.identifier == "showWhoDoYouNeed" else { return }
     guard let destination = segue.destination as? WhoDoYouNeedViewController else { return }
     destination.delegate = self

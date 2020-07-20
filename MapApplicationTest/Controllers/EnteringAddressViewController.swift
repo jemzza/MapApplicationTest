@@ -10,6 +10,8 @@ import UIKit
 
 class EnteringAddressViewController: UIViewController {
 
+  //MARK: - Vars
+  
   weak var delegate: MapViewControllerDelegate?
   let imageViewBackground = UIImageView()
   
@@ -43,6 +45,8 @@ class EnteringAddressViewController: UIViewController {
     button.addTarget(self, action: #selector(doneButtonPressed), for: .touchDown)
     return button
   }()
+  
+  //MARK: - View Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()

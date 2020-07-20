@@ -8,10 +8,10 @@
 
 import Foundation
 
-final class Network {
+final class NetworkManager {
   
-  static var shared = Network()
-  
+  static var shared = NetworkManager()
+
   private init() {}
   
   //MARK: - User
@@ -19,7 +19,7 @@ final class Network {
   //MARK: - Download User
   func downloadUserFromFirestore(userId: String, email: String) {
     
-    guard Reachabilty.HasConnection() else { return }
+//    guard Reachabilty.HasConnection() else { return }
     
     FirebaseReference(.User).document(userId).getDocument { (snapshot, error) in
       guard let snapshot = snapshot else { return }
@@ -40,7 +40,7 @@ final class Network {
   //MARK: - Save User to firebase
   private func saveUserToFirestore(User: User) {
     
-    guard Reachabilty.HasConnection() else { return }
+//    guard Reachabilty.HasConnection() else { return }
     
     FirebaseReference(.User).document(User.objectId).setData(userDictionaryFrom(user: User) as! [String : Any]) { (error) in
       if error != nil {
@@ -65,7 +65,7 @@ final class Network {
   //MARK: - Save Order
   func saveOrderToFirestore(_ order: Order) {
     
-    guard Reachabilty.HasConnection() else { return }
+//    guard Reachabilty.HasConnection() else { return }
     
     FirebaseReference(.Order).document(order.id).setData(orderDictionaryFrom(order) as! [String : Any])
   }

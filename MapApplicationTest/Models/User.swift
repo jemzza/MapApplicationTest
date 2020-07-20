@@ -59,8 +59,9 @@ init(_objectId: String, _email: String) {
       
       if error == nil {
         if authDataResult!.user.isEmailVerified {
+          
           //to download user from firestore
-          Network.shared.downloadUserFromFirestore(userId: authDataResult!.user.uid, email: email)
+          NetworkManager.shared.downloadUserFromFirestore(userId: authDataResult!.user.uid, email: email)
           
           completion(error, true)
         } else {
@@ -101,6 +102,4 @@ init(_objectId: String, _email: String) {
       completion(error)
     }
   }
-  
 }
-
