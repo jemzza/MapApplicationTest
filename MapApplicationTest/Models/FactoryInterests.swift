@@ -19,6 +19,7 @@ final class FactoryInterests {
   private init() {}
   
   func createInterest(interest: Interests) -> Interest {
+    
     switch interest {
     case .read:
       return ReadABook()

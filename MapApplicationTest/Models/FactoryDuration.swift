@@ -19,6 +19,7 @@ final class FactoryDuration {
   private init() {}
   
   func createDuration(duration: Durations) -> Duration {
+    
     switch duration {
     case .oneHour:
       return DurationFirst()

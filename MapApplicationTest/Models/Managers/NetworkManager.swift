@@ -70,7 +70,7 @@ final class NetworkManager {
 
   //MARK: - Helper functions Order
   private func orderDictionaryFrom(_ order: Order) -> NSDictionary {
-    return NSDictionary(objects: [order.id, order.location!, order.latitude, order.longitude, order.gender!, order.age!, order.weight!, order.interests!, order.date], forKeys: [keyObjectId as NSCopying, keyLocation as NSCopying, keyLatitude as NSCopying, keyLongitude as NSCopying, keyGender as NSCopying, keyAge as NSCopying, keyWeight as NSCopying, keyInterests as NSCopying, keyDate as NSCopying])
+    return NSDictionary(objects: [order.id, order.ownerId, order.location!, order.latitude, order.longitude, order.gender!, order.age!, order.weight!, order.interests!, order.date], forKeys: [keyObjectId as NSCopying, keyOwnerId as NSCopying,keyLocation as NSCopying, keyLatitude as NSCopying, keyLongitude as NSCopying, keyGender as NSCopying, keyAge as NSCopying, keyWeight as NSCopying, keyInterests as NSCopying, keyDate as NSCopying])
   }
 
   //MARK: - Download Order

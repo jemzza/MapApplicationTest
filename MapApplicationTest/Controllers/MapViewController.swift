@@ -52,14 +52,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     mapView.delegate = self
     
-    orders = realm.objects(Order.self)
-    orders.forEach({ print("Orders location: \($0.location ?? "Kek")") })
+//    orders = realm.objects(Order.self)
+//    orders.forEach({ print("Orders location: \($0.location ?? "Kek")") })
+//
+//    DispatchQueue.main.async {
+//      self.orders.forEach { (order) in
+//        self.mapManager.setupOrder(order: order, mapView: self.mapView)
+//      }
+//    }
     
-    DispatchQueue.main.async {
-      self.orders.forEach { (order) in
-        self.mapManager.setupOrder(order: order, mapView: self.mapView)
-      }
-    }
+    loadOrders()
   }
   
   //MARK: - IBActions
@@ -138,6 +140,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     destination.dataLongitude = Double(coordinate.longitude)
     
     print("адрес: \(destination.dataAddress ?? "#Адрес не передался!!!")")
+  }
+  
+  //MARK: - Load Orders
+  private func loadOrders() {
+    
+    NetworkManager.shared.downloadOrdersFromFirebase { (allOrders) in
+      
+//      self.orders = allOrders
+      
+      allOrders.forEach { (order) in
+        DispatchQueue.main.async {
+          self.mapManager.setupOrder(order: order, mapView: self.mapView)
+        }
+      }
+//      self.mapView.reloadInputViews()
+    }
   }
   
   //MARK: - Helpers func

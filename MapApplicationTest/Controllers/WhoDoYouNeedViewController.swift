@@ -59,7 +59,8 @@ class WhoDoYouNeedViewController: UIViewController {
       
       guard let latitude = dataLatitude, let longitude = dataLongitude else { return }
       
-      let newOrder = Order(location: dataAddress ?? "Зеленоград", latitude: latitude, longitude: longitude, gender: gender, age: age, weight: weight, interests: interest, duration: 0)
+      var newOrder = Order(location: dataAddress ?? "Зеленоград", latitude: latitude, longitude: longitude, gender: gender, age: age, weight: weight, interests: interest, duration: 0)
+      newOrder.ownerId = User.currentId()
       
       switch duration {
       case "1 час":
@@ -71,7 +72,10 @@ class WhoDoYouNeedViewController: UIViewController {
       }
       
       StorageManager.saveObject(newOrder)
-      print("### Заказ успешно сохранен ###")
+      print("### Заказ успешно сохранен локально###")
+      
+      NetworkManager.shared.saveOrderToFirestore(newOrder)
+      print("### Заказ успешно сохранен в Firestore###")
       delegate?.getOrder(newOrder)
       
       weak var presentingVC = presentingViewController

@@ -7,28 +7,7 @@
 //
 
 import Foundation
-/*
- struct Order {
- 
- var id: String!
- var location: String
- var gender: Gender
- var age: String
- var weight: String
- var date = Date()
- var interests: [Interest]?
- var duration: Duration?
- 
- init() {
- location = ""
- gender = .male
- age = ""
- weight = ""
- interests = nil
- duration = nil
- }
- }
- */
+
 enum Gender {
   case male, female
 }
@@ -38,6 +17,7 @@ import RealmSwift
 class Order: Object {
   
   @objc dynamic var id: String = UUID().uuidString
+  @objc dynamic var ownerId: String = UUID().uuidString
   @objc dynamic var location: String!
   @objc dynamic var latitude: Double = 0.0
   @objc dynamic var longitude: Double = 0.0
@@ -65,7 +45,8 @@ class Order: Object {
   }
   
   init(_dictionary: NSDictionary) {
-    id = (_dictionary[keyUserId] as? String)!
+    id = (_dictionary[keyObjectId] as? String)!
+    ownerId = (_dictionary[keyOwnerId] as? String)!
     location = _dictionary[keyLocation] as? String
     latitude = (_dictionary[keyLatitude] as? Double)!
     longitude = (_dictionary[keyLongitude] as? Double)!
@@ -76,3 +57,26 @@ class Order: Object {
     date = (_dictionary[keyDate] as? Date)!
   }
 }
+
+/*
+struct Order {
+
+var id: String!
+var location: String
+var gender: Gender
+var age: String
+var weight: String
+var date = Date()
+var interests: [Interest]?
+var duration: Duration?
+
+init() {
+location = ""
+gender = .male
+age = ""
+weight = ""
+interests = nil
+duration = nil
+}
+}
+*/

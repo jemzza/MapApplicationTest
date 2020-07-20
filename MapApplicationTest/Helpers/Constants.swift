@@ -13,7 +13,7 @@ public let keyUserPath = "User"
 public let keyOrderPath = "Order"
 
 //Order
-public let keyUserId = "userId"
+public let keyOwnerId = "ownerId"
 public let keyLocation = "location"
 public let keyLatitude = "latitude"
 public let keyLongitude = "longitude"
