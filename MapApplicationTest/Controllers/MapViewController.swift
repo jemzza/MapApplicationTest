@@ -17,9 +17,20 @@ protocol MapViewControllerDelegate: class {
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
   
+  //MARK: - IBOutlets
+  
+  @IBOutlet weak var mapView: MKMapView!
+  @IBOutlet weak var mapPinImage: UIImageView!
+  @IBOutlet weak var myLocationButton: UIButton!
+  @IBOutlet weak var addressButton: UIButton!
+  @IBOutlet weak var addressLabel: UILabel!
+  @IBOutlet weak var nextButton: UIButton!
+  
+  //MARK: - Vars
+  
   let mapManager = MapManager()
   private var orders: Results<Order>!
-    
+  
   var previousLocation: CLLocation? {
     didSet {
       mapManager.startTrackingUserLocation(for: mapView, and: previousLocation) { (currentLocation) in
@@ -31,12 +42,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
   }
   
-  @IBOutlet weak var mapView: MKMapView!
-  @IBOutlet weak var mapPinImage: UIImageView!
-  @IBOutlet weak var myLocationButton: UIButton!
-  @IBOutlet weak var addressButton: UIButton!
-  @IBOutlet weak var addressLabel: UILabel!
-  @IBOutlet weak var nextButton: UIButton!
+  //MARK: - View Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -64,6 +70,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   }
   
   //MARK: - IBActions
+  
   @IBAction func myLocationButtonPressed(_ sender: UIButton) {
     print("Determine user location")
     mapManager.showUserLocation(mapView: mapView)
@@ -77,26 +84,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     present(enteringAddressVC, animated: true, completion: nil)
   }
   
+  //MARK: - Prepare for segue
+  
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-    guard segue.identifier == "showWhoDoYouNeed" else { return }
-    guard let destination = segue.destination as? WhoDoYouNeedViewController else { return }
-    destination.delegate = self
-    guard addressLabel.text != "" else {
-      print("Choose address")
-      return
-    }
-
-    destination.dataAddress = addressLabel.text!
-    let coordinate = mapManager.getCenterLocation(for: mapView).coordinate
-    destination.dataLatitude = Double(coordinate.latitude)
-    destination.dataLongitude = Double(coordinate.longitude)
     
-
-    print("адрес: \(destination.dataAddress ?? "#Адрес не передался!!!")")
+    //check if user is logged
+    if User.currentUser() != nil {
+      showWhoDoYouNeedVC(segue: segue)
+      
+    } else {
+      showWelcomeVC()
+    }
   }
   
-  //MARK: - Set up View
+  //MARK: - Setup View
   
   func setUpMapView() {
     addressLabel.text = ""
@@ -104,7 +105,37 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     addressButton.layer.borderColor = UIColor.darkGray.cgColor
     addressButton.layer.borderWidth = 1
   }
+  
+  //MARK: - Show welcomeVC
+  
+  private func showWelcomeVC() {
+    let loginView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "welcomeVC")
+    loginView.modalPresentationStyle = .fullScreen
+    self.present(loginView, animated: true, completion: nil)
+  }
+  
+  //MARK: - Show WhoDoYouNeedViewController
+  
+  private func showWhoDoYouNeedVC(segue: UIStoryboardSegue ) {
+    guard segue.identifier == "showWhoDoYouNeed" else { return }
+    guard let destination = segue.destination as? WhoDoYouNeedViewController else { return }
+    destination.delegate = self
+    guard addressLabel.text != "" else {
+      print("Choose address")
+      return
+    }
+    
+    destination.dataAddress = addressLabel.text!
+    let coordinate = mapManager.getCenterLocation(for: mapView).coordinate
+    destination.dataLatitude = Double(coordinate.latitude)
+    destination.dataLongitude = Double(coordinate.longitude)
+    
+    
+    print("адрес: \(destination.dataAddress ?? "#Адрес не передался!!!")")
+  }
 }
+
+//MARK: - MKMapViewDelegate
 
 extension MapViewController: MKMapViewDelegate {
   
@@ -171,6 +202,8 @@ extension MapViewController: MKMapViewDelegate {
   }
   
 }
+
+//MARK: - MapViewControllerDelegate
 
 extension MapViewController: MapViewControllerDelegate {
   

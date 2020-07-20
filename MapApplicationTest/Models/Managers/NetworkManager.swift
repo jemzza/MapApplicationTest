@@ -18,6 +18,9 @@ final class Network {
   
   //MARK: - Download User
   func downloadUserFromFirestore(userId: String, email: String) {
+    
+    guard Reachabilty.HasConnection() else { return }
+    
     FirebaseReference(.User).document(userId).getDocument { (snapshot, error) in
       guard let snapshot = snapshot else { return }
       
@@ -36,6 +39,9 @@ final class Network {
 
   //MARK: - Save User to firebase
   private func saveUserToFirestore(User: User) {
+    
+    guard Reachabilty.HasConnection() else { return }
+    
     FirebaseReference(.User).document(User.objectId).setData(userDictionaryFrom(user: User) as! [String : Any]) { (error) in
       if error != nil {
         print("error saving user \(error!.localizedDescription)")
@@ -58,6 +64,9 @@ final class Network {
   
   //MARK: - Save Order
   func saveOrderToFirestore(_ order: Order) {
+    
+    guard Reachabilty.HasConnection() else { return }
+    
     FirebaseReference(.Order).document(order.id).setData(orderDictionaryFrom(order) as! [String : Any])
   }
 
@@ -68,6 +77,8 @@ final class Network {
 
   //MARK: - Download Order
   func downloadOrdersFromFirebase(completion: @escaping (_ itemArray: [Order]) -> Void) {
+    
+    guard Reachabilty.HasConnection() else { return }
       
       var itemArray: [Order] = []
       
