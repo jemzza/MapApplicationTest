@@ -26,6 +26,7 @@ class Order: Object {
   @objc dynamic var interests: String!
   @objc dynamic var duration: Int = 0
   @objc dynamic var date = Date().timeIntervalSince1970
+  @objc dynamic var dateOfEnd = Date().timeIntervalSince1970
   
   convenience init(location: String, latitude: Double, longitude: Double, gender: String, age: String, weight: String, interests: String, duration: Int) {
     self.init()
@@ -54,6 +55,7 @@ class Order: Object {
     weight = _dictionary[keyWeight] as? String
     interests = _dictionary[keyInterests] as? String
     date = (_dictionary[keyDate] as? TimeInterval)!
+    dateOfEnd = (_dictionary[keyDateOfEnd] as? TimeInterval)!
   }
 }
 

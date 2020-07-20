@@ -23,6 +23,7 @@ public let keyWeight = "weight"
 public let keyInterests = "interests"
 public let keyDuration = "duration"
 public let keyDate = "date"
+public let keyDateOfEnd = "dateOfEnd"
 
 //User
 public let keyObjectId = "objectId"

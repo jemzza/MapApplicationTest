@@ -49,25 +49,25 @@ class MapManager {
     let annotation = MKPointAnnotation()
     
     guard let gender = order.gender, let age = order.age, let weight = order.weight, let interest = order.interests else { return }
-    
-    let duration = order.duration
-    
-    let date = Date(timeIntervalSince1970: order.date)
-    print("### просто: date(\(date)) ###" )
-    let dateNow = Date()
-    let calendar = Calendar.current
-    
-    guard let dateOfEnd = calendar.date(byAdding: .hour, value: duration, to: date) else { return }
-    
-    guard Date() <= dateOfEnd else {
-      print("Не прошел guard: dateNow(\(dateNow)) >= dateOfEnd(\(dateOfEnd))" )
+
+    guard Date() <= Date(timeIntervalSince1970: order.dateOfEnd) else {
+//      print("Не прошел guard: dateNow(\(Date())) > dateOfEnd(\(Date(timeIntervalSince1970: order.dateOfEnd))" )
       return
     }
-    print("Прошел guard: dateNow(\(dateNow)) >= dateOfEnd(\(dateOfEnd))" )
-    guard let substractionInHours = calendar.dateComponents([.hour], from: date, to: dateOfEnd).hour else { return }
+//    print("Прошел guard: dateNow(\(Date())) <= dateOfEnd(\(Date(timeIntervalSince1970: order.dateOfEnd))" )
+    
+    guard let substractionInHours = Calendar.current.dateComponents([.hour], from: Date(), to: Date(timeIntervalSince1970: order.dateOfEnd)).hour else { return }
     
     annotation.title = "\(interest). \(gender). Возраст: \(age). Вес: \(weight)."
-    annotation.subtitle = "Осталось часов: \(substractionInHours)"
+    
+    if substractionInHours == 0 {
+      
+      guard let substractionInMinutes = Calendar.current.dateComponents([.minute], from: Date(), to: Date(timeIntervalSince1970: order.dateOfEnd)).minute else { return }
+      annotation.subtitle = "Осталось минут: \(substractionInMinutes)"
+    } else {
+      annotation.subtitle = "Осталось часов: \(substractionInHours)"
+    }
+    
     
     annotation.coordinate = location.coordinate
     

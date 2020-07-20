@@ -60,15 +60,22 @@ class WhoDoYouNeedViewController: UIViewController {
       guard let latitude = dataLatitude, let longitude = dataLongitude else { return }
       
       let newOrder = Order(location: dataAddress ?? "Зеленоград", latitude: latitude, longitude: longitude, gender: gender, age: age, weight: weight, interests: interest, duration: 0)
+      
       newOrder.ownerId = User.currentId()
       
       switch duration {
       case "1 час":
         newOrder.duration = 1
+        guard let dateOfEnd = getDateOfEnd(timeInterval: newOrder.date, duration: newOrder.duration) else { return }
+        newOrder.dateOfEnd = dateOfEnd
       case "2 часа":
         newOrder.duration = 2
+        guard let dateOfEnd = getDateOfEnd(timeInterval: newOrder.date, duration: newOrder.duration) else { return }
+        newOrder.dateOfEnd = dateOfEnd
       default:
         newOrder.duration = 3
+        guard let dateOfEnd = getDateOfEnd(timeInterval: newOrder.date, duration: newOrder.duration) else { return }
+        newOrder.dateOfEnd = dateOfEnd
       }
       
 //      StorageManager.saveObject(newOrder)
@@ -76,19 +83,43 @@ class WhoDoYouNeedViewController: UIViewController {
       
       NetworkManager.shared.saveOrderToFirestore(newOrder)
       print("### Заказ успешно сохранен в Firestore###")
-      delegate?.getOrder(newOrder)
       
-      weak var presentingVC = presentingViewController
-      
-      self.dismiss(animated: true, completion: {
-        let successVC = SuccessViewController()
-        successVC.modalPresentationStyle = .overFullScreen
-        presentingVC?.present(successVC, animated: true, completion: nil)
-      })
+      setupOrder(newOrder)
+      showSuccessVC()
       
     } else {
       showAlert(title: "Не все поля заполнены", message: "Заполните, пожалуйста, все поля!")
     }
+  }
+  
+  //MARK: - Get Date of end
+  
+  func getDateOfEnd(timeInterval: TimeInterval, duration: Int) -> TimeInterval? {
+    
+    let date = Date(timeIntervalSince1970: timeInterval)
+    let calendar = Calendar.current
+    let dateOfEnd = calendar.date(byAdding: .hour, value: duration, to: date)?.timeIntervalSince1970
+    
+    return dateOfEnd
+  }
+  
+  //MARK: - Set up Order on map
+  
+  private func setupOrder(_ order: Order) {
+    delegate?.getOrder(order)
+  }
+  
+  //MARK: - Show SuccessViewController
+  
+  private func showSuccessVC() {
+    
+    weak var presentingVC = presentingViewController
+    
+    self.dismiss(animated: true, completion: {
+      let successVC = SuccessViewController()
+      successVC.modalPresentationStyle = .overFullScreen
+      presentingVC?.present(successVC, animated: true, completion: nil)
+    })
   }
   
   //MARK: - Setup View
