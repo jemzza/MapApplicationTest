@@ -29,7 +29,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
   //MARK: - Vars
   let mapManager = MapManager()
   private var orders: Results<Order>!
-  private var ordersFromFB: [Order]!
+  private var ordersFromFB = [Order]()
   
   var previousLocation: CLLocation? {
     didSet {

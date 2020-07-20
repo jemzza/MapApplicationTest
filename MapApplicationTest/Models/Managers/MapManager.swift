@@ -39,6 +39,8 @@ class MapManager {
   
   func setupOrder(order: Order?, mapView: MKMapView) {
     
+    //TODO: Проблема с Date!!! dateOfEnd в класс!
+    
     //Установка по координатам
     guard let order = order else { return }
     
@@ -47,13 +49,21 @@ class MapManager {
     let annotation = MKPointAnnotation()
     
     guard let gender = order.gender, let age = order.age, let weight = order.weight, let interest = order.interests else { return }
+    
     let duration = order.duration
     
     let date = Date(timeIntervalSince1970: order.date)
+    print("### просто: date(\(date)) ###" )
+    let dateNow = Date()
     let calendar = Calendar.current
+    
     guard let dateOfEnd = calendar.date(byAdding: .hour, value: duration, to: date) else { return }
     
-    guard Date() >= dateOfEnd else { return }
+    guard Date() <= dateOfEnd else {
+      print("Не прошел guard: dateNow(\(dateNow)) >= dateOfEnd(\(dateOfEnd))" )
+      return
+    }
+    print("Прошел guard: dateNow(\(dateNow)) >= dateOfEnd(\(dateOfEnd))" )
     guard let substractionInHours = calendar.dateComponents([.hour], from: date, to: dateOfEnd).hour else { return }
     
     annotation.title = "\(interest). \(gender). Возраст: \(age). Вес: \(weight)."

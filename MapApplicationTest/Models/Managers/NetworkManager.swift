@@ -63,7 +63,7 @@ final class NetworkManager {
   //MARK: - Save Order
   func saveOrderToFirestore(_ order: Order) {
     
-    guard Reachabilty.HasConnection() else { return }
+//    guard Reachabilty.HasConnection() else { return }
     
     FirebaseReference(.Order).document(order.id).setData(orderDictionaryFrom(order) as! [String : Any])
   }

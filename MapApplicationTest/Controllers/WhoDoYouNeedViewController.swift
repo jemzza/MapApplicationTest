@@ -59,7 +59,7 @@ class WhoDoYouNeedViewController: UIViewController {
       
       guard let latitude = dataLatitude, let longitude = dataLongitude else { return }
       
-      var newOrder = Order(location: dataAddress ?? "Зеленоград", latitude: latitude, longitude: longitude, gender: gender, age: age, weight: weight, interests: interest, duration: 0)
+      let newOrder = Order(location: dataAddress ?? "Зеленоград", latitude: latitude, longitude: longitude, gender: gender, age: age, weight: weight, interests: interest, duration: 0)
       newOrder.ownerId = User.currentId()
       
       switch duration {
