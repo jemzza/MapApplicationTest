@@ -13,7 +13,6 @@ class MapManager {
   
   let locationManager = CLLocationManager()
   
-  private var placeCoordinate: CLLocationCoordinate2D?
   private let regionInMeters = 1_000.00
   
   func searchPlace(string: String?, mapView: MKMapView) {
