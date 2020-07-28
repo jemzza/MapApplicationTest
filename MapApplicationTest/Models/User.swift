@@ -53,6 +53,7 @@ init(_objectId: String, _email: String) {
   }
   
   //MARK: - Login func
+  
   class func loginUserWith(email: String, password: String, completion: @escaping(_ error: Error?, _ isEmailVerified: Bool) -> Void) {
     
     Auth.auth().signIn(withEmail: email, password: password) { (authDataResult, error) in
